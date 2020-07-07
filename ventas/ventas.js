@@ -181,14 +181,16 @@ function renderProductos(tab_index, venta){
 
 function cobrarEImprimir(evt){
 	console.log("cobrarEImprimir()")
+	evt.preventDefault();
 	evt.data = {"imprimir": true};
 	evt.type = "submit";
 	
 	
-	var icono = boton.find(".fas");
+	var boton = $("#cobrar");
+	// var icono = boton.find(".fas");
 	
-	$("#imprimir").prop('disabled',true);
-	$("#imprimir").find(".fas").toggleClass('fa-print fa-spinner fa-spin');
+	$("#cobrar").prop('disabled',true);
+	$("#cobrar").find(".fas").toggleClass('fa-dollar-sign fa-spinner fa-spin');
 	
 	guardarVenta(evt).done(function(respuesta){
 		
@@ -210,8 +212,8 @@ function cobrarEImprimir(evt){
 		
 		}).always(function(){
 		
-		$("#imprimir").prop('disabled',false);
-		$("#imprimir").find(".fas").toggleClass('fa-print fa-spinner fa-spin');
+		$("#cobrar").prop('disabled',false);
+		$("#cobrar").find(".fas").toggleClass('fa-dollar-sign fa-spinner fa-spin');
 		
 		
 	})

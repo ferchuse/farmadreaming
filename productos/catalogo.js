@@ -13,16 +13,21 @@ function listaProductos() {
 		$.each(respuesta, function (index, value) {
 			bgClass = Number(value.existencia_productos) < Number(value.min_productos) ? "bg-danger" : " ";
 			
+			let ganancia_pesos = (value.precio_menudeo - (value.costo_proveedor / value.piezas)).toFixed(2);
+			let ganancia_porc= Number(value.ganancia_menudeo_porc).toFixed(0);
+			
 			tableTemplate += `
 			<tr class="${bgClass}">
 			<td class="text-center">${value.descripcion_productos}</td>
 			<td class="text-center">${value.nombre_departamentos} </td>
-			<td class="text-center">${value.costo_proveedor} </td>
-			<td class="text-center">${value.ganancia_menudeo_porc} </td>
-			<td class="text-center">${value.precio_menudeo} </td>
+			<td class="text-center">$${value.costo_proveedor} </td>
+			<td class="text-center">${ganancia_porc}% <BR>
+			$${ganancia_pesos}
+			</td>
+			<td class="text-center">$${value.precio_menudeo} </td>
 			<td class="text-center">${value.precio_mayoreo} </td>                
-			<td class="text-center">${value.min_productos} </td>
-			<td class="text-center">${value.existencia_productos} </td>                
+			<td class="text-center">${Number(value.min_productos).toFixed(0)} </td>
+			<td class="text-center">${Number(value.existencia_productos).toFixed(0)} </td>                
 			<td class="text-center">
 			<input form='form_imprimir_precios' name="id_productos[]" class="seleccionar" type="checkbox" value="${value.id_productos}">
 			<button class="btn btn-warning btn_editar" data-id_producto="${value.id_productos}">

@@ -4,14 +4,14 @@ function Conectarse()
 	
 	$host="localhost";
 	
-	if($_SERVER["SERVER_NAME"] == "minisuper3g.micrositio.mx"){
+	if($_SERVER["SERVER_NAME"] == "farmadreaming.micrositio.mx"){
 		//echo "_SERVER".$_SERVER["SERVER_NAME"];
-		$db="microsit_minisuper3g";
+		$db="microsit_farmadreaming";
 		$usuario="microsit_practic";
 		$pass="UAEH@2018";
 	}
 	else{
-		$db="minisuper3g";
+		$db="farmadreaming";
 		$usuario="sistemas";
 		$pass="Glifom3dia";
 		$set_local = "SET time_zone = '-05:00'";

@@ -18,9 +18,9 @@
 <html lang="es">
 	
 	<head>
-    <title>Iniciar Sesión</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Iniciar Sesión</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
 		
 		
@@ -30,12 +30,12 @@
 		<link href="login.css" rel="stylesheet" >
 		
 		<?php include("../scripts_carpetas.php")?>
-    <script type="text/javascript" src="login.js"></script>
+		<script type="text/javascript" src="login.js"></script>
 		
 	</head>
 	
 	<body>
-    <div class="container">
+		<div class="container">
 			<div class="row" id="pwd-container">
 				<div class="col-md-4"></div>
 				

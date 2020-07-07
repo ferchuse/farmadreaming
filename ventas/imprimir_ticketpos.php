@@ -15,11 +15,24 @@
 		$fila_venta[] = $fila;
 	}
 	
+	
+	$consulta = "SELECT * FROM empresas";
+	
+	$result = mysqli_query($link, $consulta);
+	
+	while ($fila = mysqli_fetch_assoc($result)) {
+		$empresa = $fila;
+	}
+	
+	
+	
+	
+	
 	$respuesta = "";
 	$respuesta.=   "\x1b"."@";
 	$respuesta.= "\x1b"."E".chr(1); // Bold
 	$respuesta.= "!";
-	$respuesta.=  "MINISUPER 3G\n";
+	$respuesta.=  "{$empresa['nombre_empresas']}\n";
 	$respuesta.=  "\x1b"."E".chr(0); // Not Bold
 	$respuesta.=  "\x1b"."@" .chr(10).chr(13);
 	$respuesta.= "Folio:   ". $fila_venta[0]["id_ventas"]. "\n";
@@ -72,5 +85,5 @@
 	echo base64_encode ( $respuesta );
 	exit(0);
 	
-	?>
-	
+?>
+
