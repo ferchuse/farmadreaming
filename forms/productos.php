@@ -25,7 +25,7 @@
 								<label required for="unidad_productos">Unidad de Medida:</label>
 								<select  class="form-control" id="unidad_productos" name="unidad_productos">
 									<option value="">Elije...</option>
-									<option value="PZA">Pieza</option>
+									<option selected value="PZA">Pieza</option>
 									<option value="KG">A Granel</option>
 								</select>
 							</div>
@@ -40,6 +40,13 @@
 							<div class="form-group">
 								<label for="costo_proveedor">Costo de compra:</label>
 								<input placeholder="" required type="number" min="0" step=".01" class="form-control" id="costo_proveedor" name="costo_proveedor">
+								
+							</div>
+							<div class="form-group">
+								<label for="costo_proveedor">
+									Piezas por Paquete:
+								</label>
+								<input placeholder="" required type="number" min="1" step="1" class="form-control" value="1" id="piezas" name="piezas">
 								
 							</div>
 							<div class="form-group ">
@@ -57,7 +64,7 @@
 							<div class="form-group ">
 								<label for="precio_mayoreo">Precio Mayoreo:</label>
 								
-								<input placeholder="" type="number" min="0.1"  step=".01" class="form-control" id="precio_mayoreo" name="precio_mayoreo">
+								<input placeholder="" type="number" step=".01" class="form-control" id="precio_mayoreo" name="precio_mayoreo">
 							</div>  
 							<div class="form-group ">
 								<label for="existencia_productos">Existencia:</label>

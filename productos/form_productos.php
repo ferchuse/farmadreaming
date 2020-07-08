@@ -5,10 +5,10 @@
 		
 		<div class="col-sm-6">
 			<div class="form-group">
-
+				
 				<label for="codigo_productos">Codigo de Barras:</label>
 				<input  type="text" autofocus class="form-control" name="codigo_productos" id="codigo_productos" placeholder="Opcional">
-
+				
 			</div>
 			<div class="form-group">
 				<label for="">Descripción:</label>
@@ -42,6 +42,13 @@
 			<div class="form-group">
 				<label for="costo_proveedor">Costo de compra:</label>
 				<input placeholder="" required type="number" min="0" step=".01" class="form-control" id="costo_proveedor" name="costo_proveedor">
+				
+			</div>
+			<div class="form-group">
+				<label for="costo_proveedor">
+					Piezas por Paquete:
+				</label>
+				<input placeholder="" required type="number" min="1" step="1" class="form-control" value="1" id="piezas" name="piezas">
 				
 			</div>
 			<div class="form-group ">
