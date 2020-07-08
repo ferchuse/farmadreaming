@@ -69,8 +69,13 @@
 						?> 
 					</ul>
 				</li>
+				<li class=" <?php echo $menu_activo == "productos" ? "active" : ''; ?>">
+					<a href="productos/catalogo.php">
+							<i class="fas fa-file-alt"></i> Productos
+						</a>
+					</li>
 				
-				<li class="dropdown <?php echo $menu_activo == "productos" ? "active" : ''; ?>">
+				<li class="dropdown hidden <?php echo $menu_activo == "productos" ? "active" : ''; ?>">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						<i class="fas fa-list"></i> Productos <strong class="caret"></strong>
 					</a>
