@@ -36,7 +36,7 @@
 			<hr>
 			<div class="row">
 				<div class="col-md-12">
-					<form id="form_filtros" class="form-inline">
+					<form id="form_filtros" class="form-inline" autocomplete="off">
 						<div class="form-group">
 							<label for="fecha_inicio">Departamento:</label>
 							<?php echo generar_select($link, "departamentos", "id_departamentos", "nombre_departamentos", true)?>
@@ -47,6 +47,10 @@
 								<option value="">TODAS</option>
 								<option value="minimo">DEBAJO DEL MINIMO</option>
 							</select>
+						</div>
+						<div class="form-group">
+							<label for="">Código:</label>
+							<input type="search" name="codigo_productos" class="form-control" >
 						</div>
 						
 						<button type="submit" class="btn btn-primary" id="btn_buscar">
@@ -73,6 +77,7 @@
 					<table class="table table-bordered" id="tabla_productos">
 						<thead class="bg-primary">
 							<tr>
+								<th class="text-center">Código</th>
 								<th class="text-center">Descripción</th>
 								<th class="text-center">Departamento</th>
 								<th class="text-center">Costo de Compra</th>
@@ -85,7 +90,9 @@
 							</tr>
 							<tr>
 								<th class="text-center">
-									<input type="text" class="form-control buscar_descripcion" data-indice="0" placeholder="Buscar descripcion">
+								</th>
+								<th class="text-center">
+									<input type="text" class="form-control buscar_descripcion" data-indice="1" placeholder="Buscar descripcion">
 								</th>
 								<th colspan="8">
 								</th>

@@ -10,6 +10,9 @@ if($_GET["id_departamentos"] != '') {
 if($_GET["existencia"] != '') {        
     $consulta.= " AND existencia_productos < min_productos";
 } 
+if($_GET["codigo_productos"] != '') {        
+    $consulta.= " AND codigo_productos = '{$_GET["codigo_productos"]}'";
+} 
 //comentario X
 
 $consulta.= "  ORDER BY descripcion_productos LIMIT 1000";

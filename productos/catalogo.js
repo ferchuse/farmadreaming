@@ -1,3 +1,5 @@
+
+
 function listaProductos() {
 	let tableTemplate;
 	let bgClass;
@@ -18,6 +20,7 @@ function listaProductos() {
 			
 			tableTemplate += `
 			<tr class="${bgClass}">
+			<td class="text-center">${value.codigo_productos}</td>
 			<td class="text-center">${value.descripcion_productos}</td>
 			<td class="text-center">${value.nombre_departamentos} </td>
 			<td class="text-center">$${value.costo_proveedor} </td>
@@ -101,6 +104,15 @@ $(document).ready(function () {
 	$("#form_filtros").submit(function () {
 		listaProductos();
 		return false;
+	})
+	
+	$("input[type=search]").focus(function () {
+		console.log("focus")
+		$(this).select();
+	})
+	$("input[type=search]").click(function () {
+		console.log("focus")
+		$(this).select();
 	})
 	
 	
