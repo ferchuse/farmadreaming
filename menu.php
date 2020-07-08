@@ -40,41 +40,49 @@
 					}
 				?> 
 				
+				<?php if(dame_permiso("reportes/index.php", $link) != "Sin Acceso"){	?>
+					<li class="dropdown <?php echo $menu_activo == "reportes" ? "active" : ''; ?>">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<i class="fas fa-chart-bar"></i> Reportes <strong class="caret"></strong>
+						</a>
+						<ul class="dropdown-menu">
+							<?php if(dame_permiso("reportes/index.php", $link) != "Sin Acceso"){	?>
+								<li>
+									<a href="reportes/index.php">Ventas Por Día</a>
+								</li>
+								<?php 
+								}
+							?> 
+							<?php if(dame_permiso("reportes/egresos.php", $link) != "Sin Acceso"){	?>
+								<li>
+									<a href="reportes/egresos.php">Egresos</a>
+								</li>
+								<?php 
+								}
+							?> 
+							<?php if(dame_permiso("inventarios/movimientos.php", $link) != "Sin Acceso"){	?>
+								<li>
+									<a href="inventarios/movimientos.php"> Movimientos</a>
+								</li>
+								<?php 
+								}
+							?> 
+						</ul>
+					</li>
+					
+					<?php 
+					}
+				?> 
 				
-				<li class="dropdown <?php echo $menu_activo == "reportes" ? "active" : ''; ?>">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="fas fa-chart-bar"></i> Reportes <strong class="caret"></strong>
-					</a>
-					<ul class="dropdown-menu">
-						<?php if(dame_permiso("reportes/index.php", $link) != "Sin Acceso"){	?>
-							<li>
-								<a href="reportes/index.php">Ventas Por Día</a>
-							</li>
-							<?php 
-							}
-						?> 
-						<?php if(dame_permiso("reportes/egresos.php", $link) != "Sin Acceso"){	?>
-							<li>
-								<a href="reportes/egresos.php">Egresos</a>
-							</li>
-							<?php 
-							}
-						?> 
-						<?php if(dame_permiso("inventarios/movimientos.php", $link) != "Sin Acceso"){	?>
-							<li>
-								<a href="inventarios/movimientos.php"> Movimientos</a>
-							</li>
-							<?php 
-							}
-						?> 
-					</ul>
-				</li>
-				<li class=" <?php echo $menu_activo == "productos" ? "active" : ''; ?>">
-					<a href="productos/catalogo.php">
+				<?php if(dame_permiso("productos/catalogo.php", $link) != "Sin Acceso"){	?>
+					<li class=" <?php echo $menu_activo == "productos" ? "active" : ''; ?>">
+						<a href="productos/catalogo.php">
 							<i class="fas fa-file-alt"></i> Productos
 						</a>
 					</li>
-				
+					<?php 
+					}
+				?> 
 				<li class="dropdown hidden <?php echo $menu_activo == "productos" ? "active" : ''; ?>">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						<i class="fas fa-list"></i> Productos <strong class="caret"></strong>
@@ -106,35 +114,40 @@
 						?> 
 					</ul>
 				</li>
-				<li class="dropdown <?php echo $menu_activo == "catalogos" ? "active" : ''; ?>">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="fas fa-file-alt"></i> Catálogos <strong class="caret"></strong>
-					</a>
-					<ul class="dropdown-menu">
-						<?php if(dame_permiso("departamentos.php", $link) != "Sin Acceso"){	?>
-							<li>
-								<a href="departamentos.php"><i class="fas fa-file-alt"></i> Departamentos</a>
-							</li>
-							<?php 
-							}
-						?> 
-						<?php
-						if(dame_permiso("proveedores.php", $link) != "Sin Acceso"){	?>
-							<li>
-								<a href="proveedores.php"><i class="fas fa-file-alt"></i> Proveedores</a>
-							</li>
-							<?php 
-							}
-						?> 
-						<?php if(dame_permiso("egresos.php", $link) != "Sin Acceso"){	?>
-							<li>
-								<a href="egresos.php"><i class="fas fa-file-alt"></i> Egresos</a>
-							</li>
-							<?php 
-							}
-						?> 
-					</ul>
-				</li>
+				
+				<?php if(dame_permiso("departamentos.php", $link) != "Sin Acceso"){	?>
+					<li class="dropdown <?php echo $menu_activo == "catalogos" ? "active" : ''; ?>">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<i class="fas fa-file-alt"></i> Catálogos <strong class="caret"></strong>
+						</a>
+						<ul class="dropdown-menu">
+							<?php if(dame_permiso("departamentos.php", $link) != "Sin Acceso"){	?>
+								<li>
+									<a href="departamentos.php"><i class="fas fa-file-alt"></i> Departamentos</a>
+								</li>
+								<?php 
+								}
+							?> 
+							<?php
+								if(dame_permiso("proveedores.php", $link) != "Sin Acceso"){	?>
+								<li>
+									<a href="proveedores.php"><i class="fas fa-file-alt"></i> Proveedores</a>
+								</li>
+								<?php 
+								}
+							?> 
+							<?php if(dame_permiso("egresos.php", $link) != "Sin Acceso"){	?>
+								<li>
+									<a href="egresos.php"><i class="fas fa-file-alt"></i> Egresos</a>
+								</li>
+								<?php 
+								}
+							?> 
+						</ul>
+					</li>
+					<?php 
+					}
+				?> 
 				
 				<?php if(dame_permiso("corte/resumen.php", $link) != "Sin Acceso"){	?>
 					<li class="<?php echo $menu_activo == "resumen" ? "active" : ''; ?>">
@@ -143,29 +156,33 @@
 						</a>
 					</li>
 					<?php
+						}
+					?>
+				</ul>
+				
+				<ul class="nav navbar-nav navbar-right">
+				
+				
+				<?php if(dame_permiso("usuarios/index.php", $link) != "Sin Acceso"){	?>
+					<li class="dropdown <?php echo $menu_activo == "control" ? "active" : '';?>">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<i class="fas fa-cog"></i> Configuración <strong class="caret"></strong>
+						</a>
+						<ul class="dropdown-menu">
+							
+							<?php if(dame_permiso("usuarios/index.php", $link) != "Sin Acceso"){	?>
+								<li>
+									<a href="usuarios/index.php"><i class="fa fa-user-plus "></i> Usuarios</a>
+								</li>
+								<?php
+								}
+							?>
+						</ul>
+					</li>
+					
+					<?php
 					}
 				?>
-			</ul>
-			
-			<ul class="nav navbar-nav navbar-right">
-				
-				<li class="dropdown <?php echo $menu_activo == "control" ? "active" : '';?>">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="fas fa-cog"></i> Configuración <strong class="caret"></strong>
-					</a>
-					<ul class="dropdown-menu">
-						
-						<?php if(dame_permiso("usuarios/index.php", $link) != "Sin Acceso"){	?>
-							<li>
-								<a href="usuarios/index.php"><i class="fa fa-user-plus "></i> Usuarios</a>
-							</li>
-							<?php
-							}
-						?>
-					</ul>
-				</li>
-				
-				
 				
 				<li >
 					<a href="#">
