@@ -39,7 +39,7 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="costo_proveedor">Costo de compra:</label>
-								<input placeholder="" required type="number" min="0" step=".01" class="form-control" id="costo_proveedor" name="costo_proveedor">
+								<input placeholder=""  type="number" min="0" step=".01" class="form-control" id="costo_proveedor" name="costo_proveedor">
 								
 							</div>
 							<div class="form-group">
@@ -52,7 +52,7 @@
 							<div class="form-group ">
 								<label for="">Porcentaje de Ganancia :</label>
 								
-								<input  required type="number" value="25" step=".01" class="form-control" id="ganancia_menudeo_porc" name="ganancia_menudeo_porc">
+								<input   type="number" value="25" step=".01" class="form-control" id="ganancia_menudeo_porc" name="ganancia_menudeo_porc">
 								
 							</div>
 							<div class="form-group ">
