@@ -47,6 +47,9 @@ function listaProductos() {
 			>
 			<i class="fa fa-cart-plus"></i>
 			</button>
+			<button class="btn btn-info btn_caducidad" data-id_productos="${value.id_productos}">
+				<i class="fa fa-hourglass-end"></i>
+			</button>
 			</td>
 			</tr>  
 			`;
@@ -60,6 +63,7 @@ function listaProductos() {
 		$("#bodyProductos").on("click", ".btn_eliminar", confirmaEliminar)
 		$("#bodyProductos").on("click", ".btn_editar", cargarRegistro)
 		$("#bodyProductos").on("click", ".btn_carrito", pedirCantidad)
+		
 		
 		$(".buscar_codigo").keyup( buscarCodigo);
 		$(".buscar_descripcion").keyup( buscarDescripcion);
@@ -76,6 +80,8 @@ function listaProductos() {
 		
 	});
 }
+
+
 function buscarCodigo() {
 	var indice = $(this).data("indice");
 	var valor_filtro = $(this).val();
