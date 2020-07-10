@@ -4,7 +4,7 @@ $("#form_caducidad").on("submit",  agregarCaducidad);
 
 
 function modalCaducidad() {
-	
+	$('#form_caducidad')[0].reset();
 	$('#form_caducidad').find("input[name=id_productos]").val($(this).data("id_productos"));
 	listarCaducidad();
 	$('#modal_caducidad').modal('show');
