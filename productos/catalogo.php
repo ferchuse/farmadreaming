@@ -92,7 +92,7 @@
 								<th class="text-center">
 								</th>
 								<th class="text-center">
-									<input type="text" class="form-control buscar_descripcion" data-indice="1" placeholder="Buscar descripcion">
+									<input form="form_filtros" name="descripcion_productos" type="text" class="form-control buscar_descripcion" data-indice="1" placeholder="Buscar descripcion">
 								</th>
 								<th colspan="8">
 								</th>
