@@ -3,7 +3,10 @@
 	include('../conexi.php');
 	$link = Conectarse();
 	
-	$consulta = "SELECT * FROM caducidad  WHERE id_productos = '{$_GET["id_productos"]}'
+	$consulta = "SELECT * FROM caducidad  
+	WHERE 
+	id_productos = '{$_GET["id_productos"]}'
+	AND vendido = 0
 	
 	ORDER BY fecha_caducidad ASC
 	";    

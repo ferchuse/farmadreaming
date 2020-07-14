@@ -102,20 +102,20 @@
 		//INSERTA movimientos
 		$exist_nueva = $producto["existencia_anterior"] - $producto["cantidad"];
 		
-		$inserta_movimientos = "INSERT INTO `almacen_movimientos` 
-		(`fecha_movimiento`, `tipo_movimiento`, `id_productos`, `cantidad`, `exist_anterior`, `exist_nueva`, `id_usuarios`, `costo`, `id_almacen`, `turno`, `referencia`, `folio`) VALUES (NOW(), 'SALIDA', 
-		'{$producto["id_productos"]}', '{$producto["cantidad"]}', '{$producto["existencia_anterior"]}', 
-		'$exist_nueva', 
-		'$id_usuarios',
-		'{$producto["precio"]}', 
-		'1', 
-		'$turno',   
-		'VENTA #$id_ventas', 
-		'$id_ventas')";
+		// $inserta_movimientos = "INSERT INTO `almacen_movimientos` 
+		// (`fecha_movimiento`, `tipo_movimiento`, `id_productos`, `cantidad`, `exist_anterior`, `exist_nueva`, `id_usuarios`, `costo`, `id_almacen`, `turno`, `referencia`, `folio`) VALUES (NOW(), 'SALIDA', 
+		// '{$producto["id_productos"]}', '{$producto["cantidad"]}', '{$producto["existencia_anterior"]}', 
+		// '$exist_nueva', 
+		// '$id_usuarios',
+		// '{$producto["precio"]}', 
+		// '1', 
+		// '$turno',   
+		// 'VENTA #$id_ventas', 
+		// '$id_ventas')";
 		
-		$result_movimientos = mysqli_query( $link, $inserta_movimientos );
+		// $result_movimientos = mysqli_query( $link, $inserta_movimientos );
 		
-		$respuesta["result_movimientos"] = $result_movimientos."-".mysqli_error($link) ;
+		// $respuesta["result_movimientos"] = $result_movimientos."-".mysqli_error($link) ;
 		
 		//Actualiza existencias
 		
@@ -129,7 +129,11 @@
 	
 	foreach($_POST["caducidad"] as $id_caducidad){
 		
-		$delete_caducidad = "DELETE FROM caducidad 
+		$delete_caducidad = "
+		UPDATE caducidad 
+		SET 
+		vendido = 1,
+		id_ventas = '$id_ventas'
 		WHERE id_caducidad = '$id_caducidad'";
 		
 		$result= mysqli_query( $link, $delete_caducidad );

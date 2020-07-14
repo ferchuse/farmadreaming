@@ -77,5 +77,22 @@
 		
 	}
 	
+	
+	//Cancelar Lotes 
+	
+		
+		$update_lotes = "
+		UPDATE caducidad 
+		SET 
+		vendido = 0,
+		id_ventas = NULL
+			WHERE id_ventas = '$id_ventas'
+	";
+		
+		$result= mysqli_query( $link, $update_lotes );
+		
+		$respuesta["update_lotes"] = $update_lotes; 
+		// $respuesta["delete_caducidad"][] = $result; 
+	
 	echo json_encode($respuesta);
 ?>
