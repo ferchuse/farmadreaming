@@ -26,7 +26,7 @@
 			display: block;
 			overflow: auto;
 			overflow-x: hidden;
-			height: 300px;
+			height: 280px;
 			width: 100%;
 			padding: 5px;
 			}
@@ -40,6 +40,10 @@
 			#tabs_ventas{
 			background-color: dimgray;
 			
+			}
+			
+			.lbl_totales {
+			margin-bottom: 15px;
 			}
 			.nav-tabs>li.active>a {
 			font-color: white !importnat;
@@ -123,6 +127,8 @@
 									<th class="text-center">Descripcion del Producto</th>
 									<th class="text-center">Precio Unitario</th>
 									<th class="text-center">Importe</th>
+									<th class="text-center">% Desc</th>
+									<th class="text-center">$ Desc</th>
 									<th class="text-center">Existencia</th>
 									<th class="text-center">Acciones</th>
 								</tr>
@@ -138,14 +144,18 @@
 								<label>Artículos </label>
 								<input class="form-control articulos" type="number" autocomplete="off" readonly value="0">
 							</div>
-							<div class="col-sm-8 text-right">
+							
+							<div class="col-sm-9 col-6  text-right ">
+								<label class="venta lbl_totales"  for="">Subtotal:</label>  <br>
+								<label class="venta lbl_totales" for="">Descuento:</label>  <br>
+								<label class="venta lbl_totales" for="">Total:</label> 
 							</div>
-							<div class="col-sm-1 h2">
-								<strong>TOTAL:</strong>
+							<div class="col-sm-2 col-6  venta">
+								<input readonly type="text" class="form-control text-right venta subtotal" value="0" >
+								<input readonly type="text" class="form-control text-right venta total_descuento" value="0">
+								<input readonly  type="text" class="form-control text-right venta total" value="0" >
 							</div>
-							<div class="col-sm-2 h1">
-								<input readonly type="text" class="form-control input-lg text-right total" value="0" name="total">
-							</div>
+							
 						</div>
 					</section>
 				</div>
@@ -212,14 +222,16 @@
 								<label>Artículos </label>
 								<input class="form-control articulos" type="number" autocomplete="off" readonly value="0">
 							</div>
-							<div class="col-sm-8 text-right">
-								
+							
+							<div class="col-sm-9 col-6  text-right ">
+								<label class="venta lbl_totales"  for="">Subtotal:</label>  <br>
+								<label class="venta lbl_totales" for="">Descuento:</label>  <br>
+								<label class="venta lbl_totales" for="">Total:</label> 
 							</div>
-							<div class="col-sm-1 h2">
-								<strong>TOTAL:</strong>
-							</div>
-							<div class="col-sm-2 h1">
-								<input readonly type="text" class="total form-control input-lg text-right " value="0" name="total">
+							<div class="col-sm-2 col-6  venta">
+								<input readonly type="text" class="form-control text-right venta subtotal" value="0" >
+								<input readonly type="text" class="form-control text-right venta total_descuento" value="0">
+								<input readonly  type="text" class="form-control text-right venta total" value="0" >
 							</div>
 						</div>
 					</section>
@@ -248,6 +260,7 @@
 		
 		<?php include('ventas/forma_pago.php'); ?>
 		<?php include('forms/modal_granel.php'); ?>
+		<?php include('caducidad/modal_elige_lote.php'); ?>
 		<?php include('scripts.php'); ?>
 		
 		<script>

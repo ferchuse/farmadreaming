@@ -15,6 +15,8 @@
 	fecha_ventas = CURDATE(),
 	hora_ventas = CURTIME(),
 	nombre_cliente = '{$_POST["nombre_cliente"]}',
+	subtotal = '{$_POST["subtotal"]}',
+	descuento = '{$_POST["descuento"]}',
 	total_ventas = '{$_POST["total_ventas"]}',
 	articulos = '{$_POST["articulos"]}',
 	estatus_ventas = '{$_POST["estatus_ventas"]}',
@@ -22,7 +24,6 @@
 	tarjeta = '{$_POST["tarjeta"]}',
 	comision = '{$_POST["comision"]}',
 	forma_pago = '{$_POST["forma_pago"]}',
-	subtotal_ventas = '{$_POST["subtotal"]}',
 	pagocon_ventas = '{$_POST["pagocon_ventas"]}',
 	cambio_ventas = '{$_POST["cambio_ventas"]}'
 	
@@ -40,7 +41,6 @@
 	tarjeta = '{$_POST["tarjeta"]}',
 	comision = '{$_POST["comision"]}',
 	forma_pago = '{$_POST["forma_pago"]}',
-	subtotal_ventas = '{$_POST["subtotal"]}',
 	pagocon_ventas = '{$_POST["pagocon_ventas"]}',
 	cambio_ventas = '{$_POST["cambio_ventas"]}'
 	

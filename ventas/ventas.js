@@ -92,11 +92,19 @@ function renderProductos(tab_index, venta){
 		<input hidden class="costo_proveedor" value='${producto['costo_proveedor']}'>
 		<input type="number"  step="any" class="cantidad form-control text-right"  value='${producto['cantidad']}'>
 		</td>
-		<td class="text-center">${producto['unidad_productos']}</td>
+		<td class="hidden">${producto['unidad_productos']}</td>
 		<td class="text-center">${producto['descripcion_productos']}</td>
 		<td class="col-sm-1"><input readonly type="number" class='precio form-control' value='${producto.precio}'> </td>
 		<td class="col-sm-1">
 		<input readonly type="number" class='importe form-control text-right' value=${producto.importe}>
+		</td>
+		<td class="col-sm-1">
+		<input type="number" class='importe form-control text-right' > </td>
+		<td class="col-sm-1">	
+		<input type="number" class="descuento form-control"   value='0'> 
+		</td>
+		<td class="col-sm-1">	
+		<input class="cant_descuento form-control"  > 
 		</td>
 		<td class="col-sm-1">	
 		<input class="existencia_anterior form-control" readonly  value='${producto['existencia_productos']}'> 
@@ -495,14 +503,25 @@ function agregarProducto(producto){
 		<td class="text-center">${producto['unidad_productos']}</td>
 		<td class="text-center">${producto['descripcion_productos']}</td>
 		<td class="col-sm-1"><input readonly type="number" class='precio form-control' value='${precio}'> </td>
-		<td class="col-sm-1"><input readonly type="number" class='importe form-control text-right' > </td>
+		<td class="col-sm-1"><input readonly type="number" class='importe form-control text-right' > 
+		</td>
+		<td class="col-sm-1">	
+		<input type="number" class="porc_descuento form-control"   value='0'> 
+		</td>
+		<td class="col-sm-1">	
+		<input type="number" class="cant_descuento form-control"   value='0'> 
+		</td>
 		<td class="col-sm-1">	
 		<input class="existencia_anterior form-control" readonly  value='${producto['existencia_productos']}'> 
 		</td>
 		<td class="text-center">
+		<button title="Elegir Lote" class="btn btn-info btn_caducidad" data-id_productos='${producto['id_productos']}'>
+		<i class="fa fa-hourglass"></i>
+		</button> 
 		<button title="Eliminar Producto" class="btn btn-danger btn_eliminar">
 		<i class="fa fa-trash"></i>
 		</button> 
+		
 		<label class="custom_checkbox">
 		Mayoreo
 		<input class="mayoreo" type="checkbox">
@@ -519,10 +538,17 @@ function agregarProducto(producto){
 		$(".mayoreo").change(aplicarMayoreoProducto);
 		$(".cantidad").keyup(sumarImportes);
 		$(".cantidad").change(sumarImportes);
+		
+		$(".cant_descuento").keyup(calcularDescuento);
+		$(".cant_descuento").change(calcularDescuento);
+		$(".porc_descuento").keyup(calcularDescuento);
+		$(".porc_descuento").change(calcularDescuento);
+		
 		$("input").focus(function(){
 			$(this).select();
 		});
 		$(".btn_eliminar").click(eliminarProducto);
+		$(".btn_caducidad").click(modalCaducidad);
 		$("#buscar_producto").val("");
 		
 	}
@@ -534,17 +560,65 @@ function agregarProducto(producto){
 	// $("#codigo_producto").focus();
 }
 
+function modalCaducidad(){
+	console.log("modalCaducidad()");
+	$('#modal_caducidad').modal('show');
+	
+	let id_productos = $(this).data("id_productos");
+	listarCaducidad(id_productos);
+}
 
+function listarCaducidad(id_productos){
+	
+	// let id_productos = $('#form_caducidad').find("input[name=id_productos]").val();
+	
+	$.ajax({
+		url: 'caducidad/lista_elige_lote.php',
+		data: { 
+			"id_productos": id_productos
+		}
+		}).done(function (respuesta) {
+		$('#lista_caducidad').html(respuesta);
+		
+	});
+	
+}
+
+function calcularDescuento(event){
+	let fila= $(this).closest("tr");
+	if($(this).hasClass("cant_descuento")){
+		console.log("Calular Porcentaje");
+		let precio =  Number(fila.find(".precio").val());
+		let cant_descuento =  Number(fila.find(".cant_descuento").val());
+		let porc_descuento = cant_descuento * 100 /  precio ;
+		fila.find(".porc_descuento").val(porc_descuento.toFixed(2));
+	}
+	else{
+		console.log("Calcular Descuento ");
+		let precio =  Number(fila.find(".precio").val());
+		let porc_descuento =  Number(fila.find(".porc_descuento").val());
+		let cant_descuento = precio * porc_descuento /100;
+		
+		fila.find(".cant_descuento").val(round(cant_descuento, 0.5).toFixed(2));
+		
+		
+	}
+	
+	sumarImportes();
+}
 
 function sumarImportes(){
 	console.log("sumarImportes");
 	let total = 0;
+	let subtotal = 0;
+	let total_descuento = 0;
 	let articulos = 0;
 	$(".tabla_venta:visible tbody tr").each(function(indice, fila ){
 		console.log("indice",indice )
 		console.log("producto",fila )
 		let cantidad = Number($(this).find(".cantidad").val());
 		let precio = Number($(this).find(".precio").val());
+		let descuento = Number($(this).find(".cant_descuento").val());
 		//Si la unidad es a granel solo contar 1 articulo
 		if($(this).find(".unidad").val() == 'KG'){
 			articulos+= 1;
@@ -553,13 +627,19 @@ function sumarImportes(){
 			articulos+= Math.round(cantidad);
 		}
 		
+		total_descuento+= descuento;
 		importe= cantidad * precio;
-		total+= importe;
+		subtotal+= importe;
 		
 		$(this).find(".importe").val(importe.toFixed(2))
 	});
 	
+	
+	total = subtotal - total_descuento;
+	
 	$(".articulos:visible").val(articulos);
+	$(".subtotal:visible").val(round(subtotal, 0.5).toFixed(2));
+	$(".total_descuento:visible").val(round(total_descuento, 0.5).toFixed(2));
 	$(".total:visible").val(round(total, 0.5).toFixed(2));
 	$("#efectivo").val(round(total, 0.5).toFixed(2));
 	// $("#total_pago").val(round(total, 0.5).toFixed(2));
@@ -632,7 +712,8 @@ function guardarVenta(event){
 			"efectivo": $("#efectivo").val(),
 			"pagocon_ventas": $("#pago").val(),
 			"cambio_ventas": $("#cambio").val(),
-			"subtotal": $("#subtotal").val(),
+			"subtotal": $(".subtotal:visible").val(),
+			"descuento": $(".total_descuento:visible").val(),
 			"comision": $("#comision").val(),
 			"tarjeta": $("#tarjeta").val(),
 			"forma_pago": $("#forma_pago").val(),
@@ -913,4 +994,4 @@ function calculaCambio(){
 	let pago = $("#pago").val();
 	let cambio = pago - efectivo;
 	$("#cambio").val(cambio);
-}									
+}										
