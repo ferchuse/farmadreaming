@@ -127,5 +127,18 @@
 		$respuesta["result_existencia"] = $result_existencia;
 	}
 	
+	foreach($_POST["caducidad"] as $id_caducidad){
+		
+		$delete_caducidad = "DELETE FROM caducidad 
+		WHERE id_caducidad = '$id_caducidad'";
+		
+		$result= mysqli_query( $link, $delete_caducidad );
+		
+		$respuesta["delete_caducidad"]["consulta"][] = $delete_caducidad; 
+		$respuesta["delete_caducidad"][] = $result; 
+	}
+	
+	
+	
 	echo json_encode($respuesta);
 ?>	

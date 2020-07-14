@@ -1,5 +1,5 @@
 var printService = new WebSocketPrinter();
-var producto_elegido ;
+var producto_elegido, caducidad = [] ;
 
 function round(value, step) {
 	step || (step = 1.0);
@@ -240,6 +240,8 @@ $(document).ready( function onLoad(){
 		e.relatedTarget // previous active tab
 	})
 	
+	$("#lista_caducidad").on("change", ".id_caducidad", editarListaCaducidad );
+	
 	$('.bg-info').keydown(navegarFilas);
 	$('#btn_refresh').click(cargarPendientes);
 	
@@ -389,6 +391,19 @@ $(document).ready( function onLoad(){
 	$("#codigo_producto").focus();
 }); 
 
+
+
+function editarListaCaducidad(){
+	
+	if($(this).prop("checked")){
+		caducidad.push($(this).data("id_caducidad"));
+	}
+	else{
+		caducidad.pop($(this).data("id_caducidad"));	
+	}
+	console.log("Caducidad", caducidad);
+}
+
 function cobrar(){
 	
 	if($(".tabla_venta:visible tbody tr").length == 0){
@@ -396,15 +411,15 @@ function cobrar(){
 		alertify.error('No hay productos');
 		return false;
 	}
-	
-	resetFormPago();
-	$("#modal_pago").modal("show");
-	
-	$("#efectivo").val($(".total:visible").val());
-	$("#subtotal").val($(".total:visible").val());
-	$("#pago").val($("#efectivo").val());
-	$("#pago").focus();
-	calculaCambio();
+
+resetFormPago();
+$("#modal_pago").modal("show");
+
+$("#efectivo").val($(".total:visible").val());
+$("#subtotal").val($(".total:visible").val());
+$("#pago").val($("#efectivo").val());
+$("#pago").focus();
+calculaCambio();
 }
 
 
@@ -719,7 +734,9 @@ function guardarVenta(event){
 			"forma_pago": $("#forma_pago").val(),
 			"estatus_ventas": estatus_ventas,
 			"nombre_cliente": nombre_cliente.toUpperCase(),
-			"total_ventas": total
+			"total_ventas": total,
+			"caducidad": caducidad
+			
 		}
 		}).done(function(respuesta){
 		if(respuesta.estatus_venta == "success"){
@@ -994,4 +1011,4 @@ function calculaCambio(){
 	let pago = $("#pago").val();
 	let cambio = pago - efectivo;
 	$("#cambio").val(cambio);
-}										
+	}													
