@@ -7,21 +7,21 @@
 ?>
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<style>
 			#respuesta_rep{
 			color: red;
 			}
 		</style>
-    <title>Productos</title>
+		<title>Productos</title>
 		
 		<?php include("../styles_carpetas.php");?>
 		
 	</head>
-  <body>
+	<body>
 		
 		<?php include("../menu_carpetas.php");?>
 		
@@ -115,7 +115,7 @@
 		</div>
 		<form id="form_imprimir_precios" action="../impresion/imprimir_precios.php">
 		</form>
-		<?php include('../forms/productos.php'); ?>
+		<?php include('form_productos.php'); ?>
 		<?php include('../forms/existencias.php'); ?>
 		<?php include('../caducidad/modal_caducidad.php'); ?>
 		

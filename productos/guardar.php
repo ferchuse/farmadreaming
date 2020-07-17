@@ -9,6 +9,8 @@
 	id_productos = '{$_POST["id_productos"]}',
 	codigo_productos = '{$_POST["codigo_productos"]}',
 	descripcion_productos = '{$_POST["descripcion_productos"]}',
+	sustancia = '{$_POST["sustancia"]}',
+	laboratorio = '{$_POST["laboratorio"]}',
 	costo_proveedor = '{$_POST["costo_proveedor"]}',
 	piezas = '{$_POST["piezas"]}',
 	unidad_productos = '{$_POST["unidad_productos"]}',
@@ -24,6 +26,8 @@
 	
 	codigo_productos = '{$_POST["codigo_productos"]}',
 	descripcion_productos = '{$_POST["descripcion_productos"]}',
+	sustancia = '{$_POST["sustancia"]}',
+	laboratorio = '{$_POST["laboratorio"]}',
 	costo_proveedor = '{$_POST["costo_proveedor"]}',
 	piezas = '{$_POST["piezas"]}',
 	unidad_productos = '{$_POST["unidad_productos"]}',
