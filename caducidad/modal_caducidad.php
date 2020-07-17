@@ -13,6 +13,10 @@
 						<form id="form_caducidad" autocomplete="off" class="was-validated">
 							<input type="hidden" name="id_productos">
 							<div class="form-group">
+								<label for="cantidad">Cantidad</label>
+								<input  type="text" required class="form-control" name="cantidad" id="cantidad" value="1" >
+							</div>
+							<div class="form-group">
 								<label for="lote">Lote</label>
 								<input  type="text" required class="form-control" name="lote" id="lote" >
 							</div>
@@ -30,6 +34,7 @@
 						<table class="table table-bordered" id="tabla_productos">
 							<thead class="bg-primary">
 								<tr>
+									<th class="text-center">Cantidad</th>
 									<th class="text-center">Lote</th>
 									<th class="text-center">Caducidad</th>
 									<th class="text-center">Acciones</th>	

@@ -28,6 +28,7 @@
 		
 	?>
 	<tr >
+		<td class="text-center"><?php echo $fila["cantidad"];?></td>
 		<td class="text-center"><?php echo $fila["lote"];?></td>
 		<td class="text-center"><?php echo date("d/m/Y", strtotime($fila["fecha_caducidad"]));?></td>
 		
