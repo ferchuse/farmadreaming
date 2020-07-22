@@ -36,6 +36,14 @@
 			<button class="btn btn-danger btn_borrar" data-id_registro="<?php echo $fila["id_caducidad"];?>">
 				<i class="fa fa-trash"></i>
 			</button>
+			<button class="btn btn-warning btn_editar" 
+				data-id_caducidad="<?php echo $fila["id_caducidad"];?>"
+				data-fecha_caducidad="<?php echo $fila["fecha_caducidad"];?>"
+				data-cantidad="<?php echo $fila["cantidad"];?>"
+				data-lote="<?php echo $fila["lote"];?>"
+				>
+				<i class="fa fa-edit"></i>
+			</button>
 		</td>
 	</tr>
 	

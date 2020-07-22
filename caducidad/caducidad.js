@@ -1,7 +1,21 @@
 $("#bodyProductos").on("click", ".btn_caducidad", modalCaducidad);
 $("#lista_caducidad").on("click", ".btn_borrar", borrarCaducidad);
+$("#lista_caducidad").on("click", ".btn_editar", cargarCaducidad);
 $("#form_caducidad").on("submit",  agregarCaducidad);
 
+
+function cargarCaducidad() {
+	// $('#form_caducidad')[0].reset();
+	// $('#form_caducidad').find("input[name=id_productos]").val($(this).data("id_productos"));
+	// listarCaducidad();
+	// $('#modal_caducidad').modal('show');
+	
+	$("#id_caducidad").val($(this).data("id_caducidad"))
+	$("#fecha_caducidad").val($(this).data("fecha_caducidad"));
+	$("#cantidad").val($(this).data("cantidad"));
+	$("#lote").val($(this).data("lote"));
+	
+}
 
 function modalCaducidad() {
 	$('#form_caducidad')[0].reset();
@@ -43,7 +57,7 @@ function agregarCaducidad(evt){
 		data: $("#form_caducidad").serialize()
 		
 		}).done(function (respuesta) {
-		
+		$("#form_caducidad")[0].reset();
 		listarCaducidad();
 		}).always(function(){
 		

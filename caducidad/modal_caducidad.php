@@ -12,6 +12,7 @@
 					<div class="col-md-4">
 						<form id="form_caducidad" autocomplete="off" class="was-validated">
 							<input type="hidden" name="id_productos">
+							<input type="hidden" name="id_caducidad" id="id_caducidad">
 							<div class="form-group">
 								<label for="cantidad">Cantidad</label>
 								<input  type="text" required class="form-control" name="cantidad" id="cantidad" value="1" >
@@ -24,9 +25,14 @@
 								<label for="fecha_caducidad">Fecha de Caducidad</label>
 								<input  type="date" required class="form-control" name="fecha_caducidad" id="fecha_caducidad" >
 							</div>
+							<button type="reset" class="btn btn-danger " >
+								<i class="fa fa-sync"></i> Reset 
+							</button>
 							<button type="submit" class="btn btn-success pull-right" id="agregar_caducidad">
 								<i class="fa fa-arrow-right"></i> Agregar 
 							</button>
+							
+							
 						</form>					
 						
 					</div>

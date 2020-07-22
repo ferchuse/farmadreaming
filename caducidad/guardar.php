@@ -6,10 +6,21 @@
 	
 	
 	$consulta = "INSERT INTO caducidad SET 
+	id_caducidad = '{$_POST["id_caducidad"]}',
 	id_productos = '{$_POST["id_productos"]}',
 	cantidad = '{$_POST["cantidad"]}',
 	lote = '{$_POST["lote"]}',
 	fecha_caducidad = '{$_POST["fecha_caducidad"]}'
+	
+	ON DUPLICATE KEY UPDATE
+	
+	id_caducidad = '{$_POST["id_caducidad"]}',
+	id_productos = '{$_POST["id_productos"]}',
+	cantidad = '{$_POST["cantidad"]}',
+	lote = '{$_POST["lote"]}',
+	fecha_caducidad = '{$_POST["fecha_caducidad"]}'
+	
+	
 	
 	";
 	
