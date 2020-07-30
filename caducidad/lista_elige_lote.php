@@ -50,31 +50,36 @@
 		if($ts_fecha_actual > $ts_fecha_caducidad){
 			$icon = "<span class='badge badge-warning'><i class='fas fa-exclamation-triangle'></i></span>";
 			$bg = "bg-danger";
+			$oferta = "SI";
 		}
 		else{
 			$icon = "";
 			$bg = "";
+			$oferta = "NO";
 		}
 	?>
 	<tr class="<?= $bg?>">
 		<td class="text-center">
-			<label class="custom_checkbox">
-				<input data-id_caducidad=<?= $fila["id_caducidad"]?> class="id_caducidad" type="checkbox">
+			<!-- 
+			<label class="custom_checkbox" hidden>
+				<input data-oferta="<?= $oferta?>" data-id_caducidad=<?= $fila["id_caducidad"]?> class="id_caducidad" type="checkbox">
 				<span class="checkmark"></span>
 			</label>
+			
+			-->
+			<input   class="cantidad" type="number"  data-id_caducidad=<?= $fila["id_caducidad"]?> >	
+		</td>
+		<td class="text-center">
+			<?php echo $fila["cantidad"];?>		
 		</td>
 		<td class="text-center"><?php echo $fila["lote"];?></td>
 		<td class="text-center">
 			<?php
 				echo $icon ." ";
 				echo date("d/m/Y", strtotime($fila["fecha_caducidad"]));
-				
 			?>
 			
 		</td>
-		
-		
-		
 	</tr>
 	
 	<?php

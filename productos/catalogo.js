@@ -30,7 +30,7 @@ function listaProductos() {
 			<td class="text-center">$${value.precio_menudeo} </td>
 			<td class="text-center">${value.precio_mayoreo} </td>                
 			<td class="text-center">${Number(value.min_productos).toFixed(0)} </td>
-			<td class="text-center">${Number(value.existencia_productos).toFixed(0)} </td>                
+			<td class="text-center">${Number(value.existencia_total).toFixed(0)} </td>                
 			<td class="text-center">
 			<input form='form_imprimir_precios' name="id_productos[]" class="seleccionar" type="checkbox" value="${value.id_productos}">
 			<button class="btn btn-warning btn_editar" data-id_producto="${value.id_productos}">
@@ -49,6 +49,9 @@ function listaProductos() {
 			</button>
 			<button class="btn btn-info btn_caducidad" data-id_productos="${value.id_productos}">
 				<i class="fa fa-hourglass-end"></i>
+			</button>
+			<button 	data-id_productos="${value.id_productos}"  data-descripcion="${value.descripcion_productos}" class="btn btn-default btn_existencia" data-id_productos="${value.id_productos}">
+				<i class="fa fa-cubes"></i>
 			</button>
 			</td>
 			</tr>  
@@ -282,6 +285,7 @@ $(document).ready(function () {
 	
 	
 });
+
 
 
 

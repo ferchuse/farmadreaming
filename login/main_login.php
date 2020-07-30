@@ -30,7 +30,7 @@
 		<link href="login.css" rel="stylesheet" >
 		
 		<?php include("../scripts_carpetas.php")?>
-		<script type="text/javascript" src="login.js"></script>
+	
 		
 	</head>
 	
@@ -82,16 +82,6 @@
 								<input type="password" name="password" class="form-control " id="password"
 								placeholder="Contraseña" required="" />
 							</div>
-							<div class="form-group">
-								<label for="password">Ultimo Turno:</label>
-								<input type="number" readonly name="turno" class="form-control col-sm-6" id="turno" placeholder="" required="" />
-								<input class="form-control col-sm-6" readonly id="cerrado" name="cerrado">
-							</div>
-							<div class="form-group">
-								<label for="password">Efectivo Inicial:</label>
-								<input type="number" value="0" step="0.01" name="efectivo_inicial" class="form-control " id="efectivo_inicial" placeholder="Efectivo inicial" required="" />
-							</div>
-							
 							
 							<button type="submit" id="btn_login" name="iniciar" class="btn btn-lg btn-primary btn-block">
 								<i class="fas fa-sign-in"></i> Iniciar Sesión <i id="spinner"
@@ -104,6 +94,8 @@
 				</div>
 			</div>
 		</div>
+		
+			<script type="text/javascript" src="login.js?v=<?= date("dmYHis")?>"></script>
 	</body>
 	
 </html>

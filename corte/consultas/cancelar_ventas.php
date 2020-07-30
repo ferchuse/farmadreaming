@@ -54,15 +54,20 @@
 		'DEVOLUCIÓN #$id_ventas', 
 		'$id_ventas')";
 		
-		$result_movimientos = mysqli_query( $link, $inserta_movimientos );
+		// $result_movimientos = mysqli_query( $link, $inserta_movimientos );
 		
-		$respuesta["result_movimientos"] = $result_movimientos."-".mysqli_error($link) ;
+		// $respuesta["result_movimientos"] = $result_movimientos."-".mysqli_error($link) ;
 		
 		
 		//actualiza existencias
 		
-		$update_existencia = "UPDATE productos SET existencia_productos = existencia_productos + '{$producto["cantidad"]}'
-		WHERE id_productos = '{$producto["id_productos"]}'	"; 
+		$update_existencia = "UPDATE sucursal_existencias SET existencia = existencia + '{$producto["cantidad"]}'
+		WHERE 
+		id_productos = '{$producto["id_productos"]}'
+		ANDjj
+		id_sucursal = '{$_COOKIE["id_sucursal"]}'	
+		
+		"; 
 		
 		$result_existencia = mysqli_query( $link, $update_existencia );
 		

@@ -22,7 +22,7 @@
 			<ul class="nav navbar-nav">
 				<?php if(dame_permiso("index.php", $link) != "Sin Acceso"){	?> 
 					<li class="<?php echo $menu_activo == "principal" ? "active" : ''; ?>">
-						<a href="index.php">
+						<a href="<?php echo isset($_COOKIE["id_sucursal"]) ? "ventas/index.php" : "index.php" ; ?>">
 							<i class="fas fa-dollar-sign"></i> Ventas
 						</a>
 					</li>					

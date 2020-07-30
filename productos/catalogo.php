@@ -118,9 +118,11 @@
 		<?php include('form_productos.php'); ?>
 		<?php include('../forms/existencias.php'); ?>
 		<?php include('../caducidad/modal_caducidad.php'); ?>
+		<?php include('../existencias/modal_existencias.php'); ?>
 		
 		<?php  include('../scripts_carpetas.php'); ?>
 		<script src="../caducidad/caducidad.js?<?= date("d-m-Y-H-m-s")?>"></script>
+		<script src="../existencias/existencias.js?<?= date("d-m-Y-H-m-s")?>"></script>
 		<script src="catalogo.js?<?= date("d-m-Y-H-m-s")?>"></script>
 		<script src="carrito.js?<?= date("d-m-Y-H-m-s")?>"></script>
 		<script src="https://unpkg.com/sticky-table-headers"></script>

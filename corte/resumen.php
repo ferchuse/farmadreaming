@@ -10,6 +10,12 @@
 	if (isset($_GET["id_turnos"])) {
 		$_COOKIE["id_turnos"] = $_GET["id_turnos"];
 	}
+	if (isset($_GET["id_sucursal"])) {
+		$id_sucursal = $_GET["id_sucursal"];
+	}
+	else{
+		$id_sucursal = $_COOKIE["id_sucursal"];	
+	}
 	if (isset($_GET["fecha_ventas"])) {
 		$fecha_corte = $_GET["fecha_ventas"];
 		} else {
@@ -138,6 +144,15 @@
 							<label>Inicio Turno: </label>
 							<input readonly type="time" class="form-control" value="<?php echo $fila_turno["hora_inicios"]; ?>" id="inicio_turno">
 						</div>
+						<?php if(dame_permiso("corte/resumen.php", $link) == "Supervisor" ){?>
+							<div class="form-group">
+								<label>Sucursal: </label>
+								<?php echo generar_select($link, "sucursales", "id_sucursal", "sucursal", false, false, true, $id_sucursal)?>
+							</div>
+							<?php 
+							} 
+						?>
+						
 					</form>
 					
 				</div>
@@ -391,7 +406,7 @@
 													echo "<strong>" . "$" . number_format($egresos, 2) . "</strong>";
 												?>
 											</h3>
-										</div>
+											</div>
 									</div>
 									
 								</div>

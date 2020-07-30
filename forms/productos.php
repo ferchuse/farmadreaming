@@ -22,6 +22,14 @@
 								<input placeholder="Nombre del producto" required class="form-control" type="text" name="descripcion_productos" id="descripcion_productos">
 							</div>
 							<div class="form-group">
+								<label for="">Sustancia:</label>
+								<input  class="form-control" type="text" name="sustancia" id="sustancia">
+							</div>
+							<div class="form-group">
+								<label for="">Laboratorio:</label>
+								<input  class="form-control" type="text" name="laboratorio" id="laboratorio">
+							</div>
+							<div class="form-group">
 								<label required for="unidad_productos">Unidad de Medida:</label>
 								<select  class="form-control" id="unidad_productos" name="unidad_productos">
 									<option value="">Elije...</option>

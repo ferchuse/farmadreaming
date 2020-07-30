@@ -8,6 +8,7 @@ function onLoad(event){
 	
 	$('.filter').keyup(filtrarFilas);
 	$('#fecha_ventas').change(cambiarFecha);
+	$('#id_sucursal').change(cambiarFecha);
 	$('#btn_ingreso').click(nuevoIngreso);
 	$('#btn_cerrar_turno').click(confirmaCerrarTurno );
 	$('#btn_resumen').click( imprimirCorte);
