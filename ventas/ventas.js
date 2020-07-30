@@ -22,7 +22,7 @@ function cargarPendientes(event){
 	console.log("content", $(".tab-content .cremeria").length);
 	
 	$.ajax({
-		url: "funciones/ventas_pendientes.php",
+		url: "../funciones/ventas_pendientes.php",
 		dataType: "JSON"
 	})
 	.done(renderPendientes);
@@ -233,6 +233,9 @@ $(document).on('keydown', disableFunctionKeys);
 
 $(document).ready( function onLoad(){
 	
+	$('#modal_caja').modal("show");
+	
+	
 	$('#imprimir').click(cobrarEImprimir);
 	
 	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
@@ -240,7 +243,10 @@ $(document).ready( function onLoad(){
 		e.relatedTarget // previous active tab
 	})
 	
-	$("#lista_caducidad").on("change", ".id_caducidad", editarListaCaducidad );
+	// $("#lista_caducidad").on("change", ".cantidad", editarListaCaducidad );
+	// $("#lista_caducidad").on("keyup", ".cantidad", editarListaCaducidad );
+	$("#form_elige_lote").on("submit", editarListaCaducidad );
+	
 	
 	$('.bg-info').keydown(navegarFilas);
 	$('#btn_refresh').click(cargarPendientes);
@@ -283,7 +289,7 @@ $(document).ready( function onLoad(){
 	
 	//Autocomplete Productos https://github.com/devbridge/jQuery-Autocomplete
 	$("#buscar_producto").autocomplete({
-		serviceUrl: "control/productos_autocomplete.php",   
+		serviceUrl: "../control/productos_autocomplete.php",   
 		onSelect: function alSeleccionarProducto(eleccion){
 			console.log("Elegiste: ",eleccion);
 			if(eleccion.data.unidad_productos == 'KG'){
@@ -393,14 +399,23 @@ $(document).ready( function onLoad(){
 
 
 
-function editarListaCaducidad(){
+function editarListaCaducidad(event){
 	
-	if($(this).prop("checked")){
-		caducidad.push($(this).data("id_caducidad"));
-	}
-	else{
-		caducidad.pop($(this).data("id_caducidad"));	
-	}
+	event.preventDefault();
+	console.log("editarListaCaducidad")
+	$("#lista_caducidad").find(".cantidad").each(function(index, item){
+		if($(this).val() > 0){
+			caducidad.push({"id_caducidad": $(this).data("id_caducidad"), "cantidad": $(this).val()});
+		}
+	});
+	// caducidad.push({"id_caducidad": $(this).data("id_caducidad"), "cantidad": $(this).val() });
+	
+	// }
+	// else{
+	// caducidad.pop({"id_caducidad": $(this).data("id_caducidad"), "cantidad": $(this).closest("td").find(".cantidad").val() });
+	
+	// }
+	$("#modal_caducidad").modal("hide");
 	console.log("Caducidad", caducidad);
 }
 
@@ -411,15 +426,15 @@ function cobrar(){
 		alertify.error('No hay productos');
 		return false;
 	}
-
-resetFormPago();
-$("#modal_pago").modal("show");
-
-$("#efectivo").val($(".total:visible").val());
-$("#subtotal").val($(".total:visible").val());
-$("#pago").val($("#efectivo").val());
-$("#pago").focus();
-calculaCambio();
+	
+	resetFormPago();
+	$("#modal_pago").modal("show");
+	
+	$("#efectivo").val($(".total:visible").val());
+	$("#subtotal").val($(".total:visible").val());
+	$("#pago").val($("#efectivo").val());
+	$("#pago").focus();
+	calculaCambio();
 }
 
 
@@ -427,17 +442,17 @@ function resetFormPago(){
 	
 	$("#div_efectivo").removeClass("hidden")
 	$("#div_tarjeta").addClass("hidden")
-	
-	$("#form_pago")[0].reset();
-	// $("#forma_pago").val("efectivo");
-	
-	$("#efectivo").prop("readonly", true)
-	$("#efectivo").val($("#subtotal").val())
-	
-	$("#tarjeta").val(0)
-	$("#comision").val(0)
-	
-	
+
+$("#form_pago")[0].reset();
+// $("#forma_pago").val("efectivo");
+
+$("#efectivo").prop("readonly", true)
+$("#efectivo").val($("#subtotal").val())
+
+$("#tarjeta").val(0)
+$("#comision").val(0)
+
+
 }
 
 function calcularGranel(event){
@@ -588,7 +603,7 @@ function listarCaducidad(id_productos){
 	// let id_productos = $('#form_caducidad').find("input[name=id_productos]").val();
 	
 	$.ajax({
-		url: 'caducidad/lista_elige_lote.php',
+		url: '../caducidad/lista_elige_lote.php',
 		data: { 
 			"id_productos": id_productos
 		}
@@ -715,7 +730,7 @@ function guardarVenta(event){
 	});
 	
 	return $.ajax({
-		url: 'ventas/guardar.php',
+		url: 'guardar.php',
 		method: 'POST',
 		dataType: 'JSON',
 		data:{
@@ -781,6 +796,8 @@ function limpiarVenta(){
 	
 	$("#codigo_productos").focus();
 	sumarImportes();
+	
+	caducidad = [];
 }
 
 function eliminarProducto(){
@@ -803,7 +820,7 @@ function imprimirTicket(id_ventas){
 	console.log("imprimirESCPOS()");
 	
 	$.ajax({
-		url: "ventas/imprimir_ticketpos.php" ,
+		url: "imprimir_ticketpos.php" ,
 		data:{
 			"id_ventas" : id_ventas
 		}
@@ -1011,4 +1028,4 @@ function calculaCambio(){
 	let pago = $("#pago").val();
 	let cambio = pago - efectivo;
 	$("#cambio").val(cambio);
-	}													
+}													

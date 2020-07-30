@@ -9,6 +9,7 @@
 	$ganancia_venta = 0;
 	
 	$insertarVentas = "INSERT INTO ventas SET
+	id_sucursal = '{$_COOKIE["id_sucursal"]}',
 	id_ventas = '{$_POST["id_ventas"]}',
 	id_usuarios = '$id_usuarios',
 	id_turnos = '$id_turnos',
@@ -119,27 +120,29 @@
 		
 		//Actualiza existencias
 		
-		$update_existencia = "UPDATE productos SET existencia_productos = existencia_productos - '{$producto["cantidad"]}'
-		WHERE id_productos = '{$producto["id_productos"]}'	"; 
+		$update_existencia = "UPDATE sucursal_existencias SET existencia = existencia - '{$producto["cantidad"]}'
+		WHERE 
+		id_productos = '{$producto["id_productos"]}'	
+		AND id_sucursal = {$_COOKIE["id_sucursal"]}"; 
 		
 		$result_existencia = mysqli_query( $link, $update_existencia );
 		
 		$respuesta["result_existencia"] = $result_existencia;
 	}
 	
-	foreach($_POST["caducidad"] as $id_caducidad){
+	foreach($_POST["caducidad"] as $i => $caducidad){
 		
 		$delete_caducidad = "
 		UPDATE caducidad 
 		SET 
-		vendido = 1,
-		id_ventas = '$id_ventas'
-		WHERE id_caducidad = '$id_caducidad'";
+		cantidad = cantidad - {$caducidad["cantidad"]}
+		
+		WHERE id_caducidad = '{$caducidad["id_caducidad"]}'";
 		
 		$result= mysqli_query( $link, $delete_caducidad );
 		
-		$respuesta["delete_caducidad"]["consulta"][] = $delete_caducidad; 
-		$respuesta["delete_caducidad"][] = $result; 
+		$respuesta["update_caducidad"]["consulta"][] = $delete_caducidad; 
+		$respuesta["update_caducidad"][] = $result; 
 	}
 	
 	
