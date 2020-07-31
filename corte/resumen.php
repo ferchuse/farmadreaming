@@ -25,7 +25,7 @@
 		$tipo_corte = $_GET["tipo_corte"];
 	} 
 	else 	{
-		$tipo_corte = "turno";
+		$tipo_corte = "dia";
 	}
 	
 	$consulta_turno = "SELECT * FROM turnos WHERE cerrado='0'";
