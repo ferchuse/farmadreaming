@@ -15,7 +15,7 @@
 							<input type="hidden" name="id_caducidad" id="id_caducidad">
 							<div class="form-group">
 								<label for="id_sucursal">Sucursal</label>
-								<?php echo generar_select($link, "sucursales", "id_sucursales", "sucursal", false, false, false, $_COOKIE["id_sucursal"])?>
+								<?php echo generar_select($link, "sucursales", "id_sucursal", "sucursal", false, false, false, $_COOKIE["id_sucursal"])?>
 							</div>
 							<div class="form-group">
 								<label for="cantidad">Cantidad</label>
