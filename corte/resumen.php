@@ -39,7 +39,10 @@
 	if ($tipo_corte == "dia" || isset($_GET["fecha_ventas"])) {
 		//Corte por dia
 		$consulta_ventas = "SELECT * FROM ventas LEFT JOIN usuarios USING(id_usuarios) 
-		WHERE fecha_ventas = '$fecha_corte' ORDER BY id_ventas DESC
+		WHERE fecha_ventas = '$fecha_corte'
+		
+		AND id_sucursal = $id_sucursal
+		ORDER BY id_ventas DESC
 		";
 		
 		
@@ -58,13 +61,21 @@
 		
 		//Corte por turno
 		$consulta_ventas = "SELECT * FROM ventas LEFT JOIN usuarios USING(id_usuarios) 
-		WHERE id_turnos = '{$_COOKIE["id_turnos"]}' ORDER BY id_ventas DESC
+		WHERE id_turnos = '{$_COOKIE["id_turnos"]}' 
+		AND id_sucursal = $id_sucursal
+		ORDER BY id_ventas DESC
 		";
 		$consulta_totales = "SELECT * FROM
 		
-		(SELECT SUM(cantidad_ingresos) AS entradas FROM ingresos WHERE estatus_ingresos='ACTIVO' AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_entradas,
-		(SELECT SUM(cantidad_egresos) AS salidas FROM egresos WHERE estatus_egresos='ACTIVO'  AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_salidas,
-		(SELECT COUNT(id_ventas) AS ventas_totales FROM ventas WHERE estatus_ventas='PAGADO' AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_ventas,
+		(SELECT SUM(cantidad_ingresos) AS entradas FROM ingresos WHERE estatus_ingresos='ACTIVO'
+		AND id_sucursal = $id_sucursal
+		AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_entradas,
+		(SELECT SUM(cantidad_egresos) AS salidas FROM egresos WHERE estatus_egresos='ACTIVO'  
+		AND id_sucursal = $id_sucursal
+		AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_salidas,
+		(SELECT COUNT(id_ventas) AS ventas_totales FROM ventas WHERE estatus_ventas='PAGADO' 
+		AND id_sucursal = $id_sucursal
+		AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_ventas,
 		(SELECT SUM(total_ventas) AS importe_ventas FROM ventas WHERE estatus_ventas='PAGADO' AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_importe
 		";
 		
