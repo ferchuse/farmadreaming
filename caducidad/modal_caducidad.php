@@ -11,8 +11,8 @@
 				<div class="row">
 					<div class="col-md-4">
 						<form id="form_caducidad" autocomplete="off" class="was-validated">
-							<input type="hidden" name="id_productos">
-							<input type="hidden" name="id_caducidad" id="id_caducidad">
+							<input type="hidden"  name="id_productos">
+							<input type="text"  name="id_caducidad" id="id_caducidad"  >
 							<div class="form-group">
 								<label for="id_sucursal">Sucursal</label>
 								<?php echo generar_select($link, "sucursales", "id_sucursal", "sucursal", false, false, false, $_COOKIE["id_sucursal"])?>
