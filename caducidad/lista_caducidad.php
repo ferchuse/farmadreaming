@@ -3,7 +3,10 @@
 	include('../conexi.php');
 	$link = Conectarse();
 	
-	$consulta = "SELECT * FROM caducidad  WHERE id_productos = '{$_GET["id_productos"]}'";    
+	$consulta = "SELECT * FROM caducidad  
+	LEFT JOIN sucursales USING(id_sucursal)
+	
+	WHERE id_productos = '{$_GET["id_productos"]}'";    
 	
 	
 	$result = mysqli_query($link,$consulta);
@@ -28,6 +31,7 @@
 		
 	?>
 	<tr >
+		<td class="text-center"><?php echo $fila["sucursal"];?></td>
 		<td class="text-center"><?php echo $fila["cantidad"];?></td>
 		<td class="text-center"><?php echo $fila["lote"];?></td>
 		<td class="text-center"><?php echo date("d/m/Y", strtotime($fila["fecha_caducidad"]));?></td>
@@ -37,6 +41,7 @@
 				<i class="fa fa-trash"></i>
 			</button>
 			<button class="btn btn-warning btn_editar" 
+				data-id_sucursal="<?php echo $fila["id_sucursal"];?>"
 				data-id_caducidad="<?php echo $fila["id_caducidad"];?>"
 				data-fecha_caducidad="<?php echo $fila["fecha_caducidad"];?>"
 				data-cantidad="<?php echo $fila["cantidad"];?>"

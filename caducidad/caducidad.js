@@ -10,6 +10,7 @@ function cargarCaducidad() {
 	// listarCaducidad();
 	// $('#modal_caducidad').modal('show');
 	
+	$("#id_sucursal").val($(this).data("id_sucursal"))
 	$("#id_caducidad").val($(this).data("id_caducidad"))
 	$("#fecha_caducidad").val($(this).data("fecha_caducidad"));
 	$("#cantidad").val($(this).data("cantidad"));
