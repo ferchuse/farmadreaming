@@ -67,15 +67,9 @@
 		";
 		$consulta_totales = "SELECT * FROM
 		
-		(SELECT SUM(cantidad_ingresos) AS entradas FROM ingresos WHERE estatus_ingresos='ACTIVO'
-		AND id_sucursal = $id_sucursal
-		AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_entradas,
-		(SELECT SUM(cantidad_egresos) AS salidas FROM egresos WHERE estatus_egresos='ACTIVO'  
-		AND id_sucursal = $id_sucursal
-		AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_salidas,
-		(SELECT COUNT(id_ventas) AS ventas_totales FROM ventas WHERE estatus_ventas='PAGADO' 
-		AND id_sucursal = $id_sucursal
-		AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_ventas,
+		(SELECT SUM(cantidad_ingresos) AS entradas FROM ingresos WHERE estatus_ingresos='ACTIVO' AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_entradas,
+		(SELECT SUM(cantidad_egresos) AS salidas FROM egresos WHERE estatus_egresos='ACTIVO'  AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_salidas,
+		(SELECT COUNT(id_ventas) AS ventas_totales FROM ventas WHERE estatus_ventas='PAGADO' AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_ventas,
 		(SELECT SUM(total_ventas) AS importe_ventas FROM ventas WHERE estatus_ventas='PAGADO' AND id_turnos = '{$_COOKIE["id_turnos"]}') AS tabla_importe
 		";
 		
