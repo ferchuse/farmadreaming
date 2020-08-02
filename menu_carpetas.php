@@ -67,6 +67,13 @@
 								<?php 
 								}
 							?> 
+							<?php if(dame_permiso("reportes/caducidad.php", $link) != "Sin Acceso"){	?>
+								<li>
+									<a href="../reportes/caducidad.php"> Caducidad</a>
+								</li>
+								<?php 
+								}
+							?> 
 						</ul>
 					</li>
 					

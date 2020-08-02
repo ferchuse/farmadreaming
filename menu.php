@@ -67,6 +67,13 @@
 								<?php 
 								}
 							?> 
+							<?php if(dame_permiso("reportes/caducidad.php", $link) != "Sin Acceso"){	?>
+								<li>
+									<a href="reportes/caducidad.php"> Caducidad</a>
+								</li>
+								<?php 
+								}
+							?> 
 						</ul>
 					</li>
 					
@@ -156,11 +163,11 @@
 						</a>
 					</li>
 					<?php
-						}
-					?>
-				</ul>
-				
-				<ul class="nav navbar-nav navbar-right">
+					}
+				?>
+			</ul>
+			
+			<ul class="nav navbar-nav navbar-right">
 				
 				
 				<?php if(dame_permiso("usuarios/index.php", $link) != "Sin Acceso"){	?>
