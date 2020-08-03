@@ -335,7 +335,7 @@ $(document).ready( function onLoad(){
 			input.toggleClass('ui-autocomplete-loading');
 			var codigoProducto = $(this).val();
 			$.ajax({
-				url: "control/buscar_normal.php",
+				url: "../control/buscar_normal.php",
 				dataType: "JSON",
 				method: 'POST',
 				data: {tabla:'productos', campo:'codigo_productos', id_campo: codigoProducto}
