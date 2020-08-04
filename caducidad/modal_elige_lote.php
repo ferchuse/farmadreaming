@@ -15,6 +15,7 @@
 								<thead class="bg-primary">
 									<tr>
 										<th class="text-center">Descontar</th>	
+										<th class="text-center">Sucursal</th>	
 										<th class="text-center">Disponibles</th>	
 										<th class="text-center">Lote</th>
 										<th class="text-center">Caducidad</th>

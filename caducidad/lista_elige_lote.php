@@ -3,7 +3,8 @@
 	include('../conexi.php');
 	$link = Conectarse();
 	
-	$consulta = "SELECT * FROM caducidad  
+	$consulta = "SELECT * FROM caducidad
+	LEFT JOIN sucursales USING(id_sucursal)
 	WHERE 
 	id_productos = '{$_GET["id_productos"]}'
 	AND vendido = 0
@@ -69,6 +70,9 @@
 			-->
 			<input   class="cantidad" type="number"  data-id_caducidad=<?= $fila["id_caducidad"]?> >	
 		</td>
+		<td class="text-center">
+			<?php echo $fila["sucursal"];?>		
+		</td>	
 		<td class="text-center">
 			<?php echo $fila["cantidad"];?>		
 		</td>
