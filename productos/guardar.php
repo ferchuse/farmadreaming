@@ -19,7 +19,9 @@
 	ganancia_menudeo_porc = '{$_POST["ganancia_menudeo_porc"]}',
 	min_productos = '{$_POST["min_productos"]}',
 	id_departamentos = '{$_POST["id_departamentos"]}',
-	existencia_productos = '{$_POST["existencia_productos"]}'
+	existencia_productos = '{$_POST["existencia_productos"]}',
+	fecha_modificacion = NOW()
+	
 	
 	
 	ON DUPLICATE KEY UPDATE 
@@ -36,8 +38,8 @@
 	ganancia_menudeo_porc = '{$_POST["ganancia_menudeo_porc"]}',
 	min_productos = '{$_POST["min_productos"]}',
 	id_departamentos = '{$_POST["id_departamentos"]}',
-	existencia_productos = '{$_POST["existencia_productos"]}'
-	
+	existencia_productos = '{$_POST["existencia_productos"]}',
+	fecha_modificacion = NOW()
 	;
 	
 	";
