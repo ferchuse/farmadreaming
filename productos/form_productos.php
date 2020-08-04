@@ -76,7 +76,7 @@
 							</div>  
 							<div class="form-group ">
 								<label for="existencia_productos">Existencia:</label>
-								<input placeholder="Cantidad de productos en existencia" type="number" min="0" step="any" class="form-control" id="existencia_productos" name="existencia_productos">
+								<input readonly placeholder="Cantidad de productos en existencia" type="number" min="0" step="any" class="form-control" id="existencia_productos" name="existencia_productos">
 							</div>
 							<div class="form-group ">
 								<label for="min_productos">Minimo:</label>
