@@ -35,6 +35,11 @@
 	$respuesta.=  "{$empresa['nombre_empresas']}\n";
 	$respuesta.=  "\x1b"."E".chr(0); // Not Bold
 	$respuesta.=  "\x1b"."@" .chr(10).chr(13);
+	$respuesta.= "AV HIDALGO No 156: \n";
+	$respuesta.= "Bo. SAN LORENZO \n";
+	$respuesta.= "ZUMPANGO, ESTADO DE MEXICO \n";
+	$respuesta.= "CP 55600 \n";
+	$respuesta.= "HORARIO 8:00 - 21:00 \n";
 	$respuesta.= "Folio:   ". $fila_venta[0]["id_ventas"]. "\n";
 	$respuesta.= "Fecha:   " . date("d/m/Y", strtotime($fila_venta[0]["fecha_ventas"]))."\n";
 	$respuesta.= "Hora:    " . date('H:i:s', strtotime($fila_venta[0]["hora_ventas"]))."\n";
