@@ -33,13 +33,13 @@ function listaProductos() {
 			<td class="text-center">${Number(value.existencia_total).toFixed(0)} </td>                
 			<td class="text-center">
 			<input form='form_imprimir_precios' name="id_productos[]" class="seleccionar" type="checkbox" value="${value.id_productos}">
-			<button class="btn btn-warning btn_editar" data-id_producto="${value.id_productos}">
+			<button title="Editar" class="btn btn-warning btn_editar" data-id_producto="${value.id_productos}">
 			<i class="fa fa-edit"></i>
 			</button>
-			<button class="btn btn-danger btn_eliminar" data-id_producto="${value.id_productos}">
+			<button title="Eliminar" class="btn btn-danger btn_eliminar" data-id_producto="${value.id_productos}">
 			<i class="fa fa-trash"></i>
 			</button>
-			<button class="btn btn-success btn_carrito" 
+			<button title="Agregar a compra" class="btn btn-success btn_carrito" 
 			data-id_productos="${value.id_productos}"
 			data-descripcion="${value.descripcion_productos}"
 			data-precio="${value.costo_proveedor}"
@@ -47,10 +47,10 @@ function listaProductos() {
 			>
 			<i class="fa fa-cart-plus"></i>
 			</button>
-			<button class="btn btn-info btn_caducidad" data-id_productos="${value.id_productos}">
+			<button title="Lote y Caducidad" class="btn btn-info btn_caducidad" data-id_productos="${value.id_productos}">
 				<i class="fa fa-hourglass-end"></i>
 			</button>
-			<button 	data-id_productos="${value.id_productos}"  data-descripcion="${value.descripcion_productos}" class="btn btn-default btn_existencia" data-id_productos="${value.id_productos}">
+			<button title="Existencias"	data-id_productos="${value.id_productos}"  data-descripcion="${value.descripcion_productos}" class="btn btn-default btn_existencia" data-id_productos="${value.id_productos}">
 				<i class="fa fa-cubes"></i>
 			</button>
 			</td>
