@@ -8,6 +8,24 @@
 		$empresa = $fila;
 	}
 	
+	$consulta_productos = "SELECT
+	cantidad,
+	descripcion,
+	importe
+	FROM
+	ventas
+	LEFT JOIN ventas_detalle USING (id_ventas)
+	WHERE
+	fecha_ventas = '$fecha_ventas'
+	AND id_sucursal = '$id_sucursal'
+	";
+	
+	$result = mysqli_query($link, $consulta_productos);
+	
+	while ($fila = mysqli_fetch_assoc($result)) {
+		$productos_vendidos[] = $fila;
+	}
+	
 	
 	$respuesta = "";
 	
@@ -31,7 +49,9 @@
 	$respuesta.= "__________________________\n";
 	$respuesta.= "Saldo Final:         $" .number_format($saldo_final, 2)."\n";
 	
-	
+	foreach ($productos_vendidos as $i => $producto){
+		$respuesta.= number_format($producto["cantidad"], 0)."   ".$producto["importe"]."    ".substr($producto["descripcion"], 0 , 16)."\n";
+	}
 	
 	// $respuesta.= NumeroALetras::convertir($fila_venta[0]["total_ventas"], "pesos", "centavos").chr(10).chr(13).chr(10).chr(13);
 	// $respuesta.= "GRACIAS POR SU COMPRA";
@@ -43,6 +63,9 @@
 	// }
 	
 	$corte = base64_encode ( $respuesta);
+	
+	// print_r($productos_vendidos);
+	// echo $consulta_productos;
 	echo "<textarea HIDDEN id='corte_b64'>$corte</textarea>";
 	
 ?>
