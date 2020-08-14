@@ -1,1 +1,1 @@
-<?php session_start();if (isset($_COOKIE['id_usuarios'])) {}else{	header("location:login/main_login.php");}?>
+<?php 	if($_SERVER["SERVER_NAME"] == "localhost"){		$url = "location:/farmadreaming/login/index.php?retorno=".$_SERVER['PHP_SELF'];	}	else{		$url = "location:https://micrositio.mx/farmadreaming/login/index.php?retorno=".$_SERVER['PHP_SELF'];	}	if (!isset($_COOKIE['id_usuarios'])) {		header($url);	}	?>
