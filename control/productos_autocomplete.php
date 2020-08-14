@@ -15,7 +15,7 @@
 	if($result){
 		while($fila=mysqli_fetch_assoc($result)){
 			
-			$respuesta ["suggestions"][]  = ["value" => $fila[$campo], "data" => $fila ];
+			$respuesta ["suggestions"][]  = ["value" => $fila[$campo]." | ".$fila["sustancia"], "data" => $fila ];
 		}
 	}
 	else $respuesta["result"] = "Error". mysqli_error($link);
