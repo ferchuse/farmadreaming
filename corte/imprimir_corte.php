@@ -8,23 +8,7 @@
 		$empresa = $fila;
 	}
 	
-	$consulta_productos = "SELECT
-	cantidad,
-	descripcion,
-	importe
-	FROM
-	ventas
-	LEFT JOIN ventas_detalle USING (id_ventas)
-	WHERE
-	fecha_ventas = '$fecha_ventas'
-	AND id_sucursal = '$id_sucursal'
-	";
 	
-	$result = mysqli_query($link, $consulta_productos);
-	
-	while ($fila = mysqli_fetch_assoc($result)) {
-		$productos_vendidos[] = $fila;
-	}
 	
 	
 	$respuesta = "";
