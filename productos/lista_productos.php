@@ -24,6 +24,10 @@ if($_GET["descripcion_productos"] != '') {
     $consulta.= " AND descripcion_productos LIKE '%{$_GET["descripcion_productos"]}%'";
 } 
 
+if($_GET["sustancia"] != '') {        
+    $consulta.= " AND sustancia LIKE '%{$_GET["sustancia"]}%'";
+} 
+
 $consulta.= "  ORDER BY descripcion_productos LIMIT 1000";
 $result = mysqli_query($link,$consulta);
 if(!$result){

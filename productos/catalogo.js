@@ -18,18 +18,17 @@ function listaProductos() {
 			let ganancia_pesos = (value.precio_menudeo - (value.costo_proveedor / value.piezas)).toFixed(2);
 			let ganancia_porc= Number(value.ganancia_menudeo_porc).toFixed(0);
 			
+			let sustancia = value.sustancia;
+			
 			tableTemplate += `
 			<tr class="${bgClass}">
 			<td class="text-center">${value.codigo_productos}</td>
 			<td class="text-center">${value.descripcion_productos}</td>
-			<td class="text-center">${value.nombre_departamentos} </td>
+			<td class="text-center">${sustancia} </td>
 			<td class="text-center">$${value.costo_proveedor} </td>
-			<td class="text-center">${ganancia_porc}% <BR>
-			$${ganancia_pesos}
-			</td>
-			<td class="text-center">$${value.precio_menudeo} </td>
-			<td class="text-center">${value.precio_mayoreo} </td>                
-			<td class="text-center">${Number(value.min_productos).toFixed(0)} </td>
+			
+			<td class="text-center">$${value.precio_menudeo} </td>               
+			
 			<td class="text-center">${Number(value.existencia_total).toFixed(0)} </td>                
 			<td class="text-center">
 			<input form='form_imprimir_precios' name="id_productos[]" class="seleccionar" type="checkbox" value="${value.id_productos}">
@@ -69,7 +68,8 @@ function listaProductos() {
 		
 		
 		$(".buscar_codigo").keyup( buscarCodigo);
-		$(".buscar_descripcion").keyup( buscarDescripcion);
+		$(".buscar").keyup( buscarDescripcion);
+		
 		
 		
 		
@@ -98,6 +98,7 @@ function buscarCodigo() {
 
 
 function buscarDescripcion() {
+	console.log("buscar()", $(this).data("indice"))
 	var indice = $(this).data("indice");
 	var valor_filtro = $(this).val();
 	var num_rows = buscar(valor_filtro, 'tabla_productos', indice);

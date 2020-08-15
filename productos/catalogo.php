@@ -79,12 +79,11 @@
 							<tr>
 								<th class="text-center">Código</th>
 								<th class="text-center">Descripción</th>
-								<th class="text-center">Departamento</th>
+								<th class="text-center">Sustancia</th>
 								<th class="text-center">Costo de Compra</th>
-								<th class="text-center">Ganancia</th>
+								
 								<th class="text-center">Precio Venta</th>
-								<th class="text-center">Precio Mayoreo</th>
-								<th class="text-center">Mínimo</th>
+								
 								<th class="text-center">Existencia</th>
 								<th class="text-center">Acciones</th>	
 							</tr>
@@ -92,9 +91,12 @@
 								<th class="text-center">
 								</th>
 								<th class="text-center">
-									<input form="form_filtros" name="descripcion_productos" type="text" class="form-control buscar_descripcion" data-indice="1" placeholder="Buscar descripcion">
+									<input form="form_filtros" name="descripcion_productos" type="text" class="form-control buscar" data-indice="1" placeholder="Buscar descripcion">
 								</th>
-								<th colspan="8">
+								<th class="text-center">
+									<input form="form_filtros" name="sustancia" size="30" type="text" class="form-control buscar" data-indice="2" >
+								</th>
+								<th colspan="7">
 								</th>
 							</tr>
 						</thead>
