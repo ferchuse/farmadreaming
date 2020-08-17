@@ -131,7 +131,7 @@
 							?>
 							<tr>
 								<td class="text-center">
-									<a href="../resumen.php?fecha_ventas=<?php echo $fecha_ventas?>">
+									<a href="../corte/resumen.php?fecha_ventas=<?php echo $fecha_ventas?>">
 										<?php echo date("d/m/Y", strtotime($fecha_ventas));?>
 									</a>
 								</td>
