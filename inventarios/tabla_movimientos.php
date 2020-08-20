@@ -189,7 +189,7 @@
 								<td><?php echo $fila_movimientos["entradas"] == '0.000' ? "-" : $fila_movimientos["entradas"] ;?></td>
 								<td>
 									<a href="#" class="salidas" data-id_productos="<?php echo $fila_movimientos["id_productos"];?>" title="Ver Detalle de Salidas">
-										<?php echo $fila_movimientos["salidas"] == '0.000' ? "-" : $fila_movimientos["salidas"] ;?>
+										<?php echo $fila_movimientos["salidas"] == '0.000' ? "-" : number_format($fila_movimientos["salidas"]) ;?>
 									</a>
 								</td>
 								
