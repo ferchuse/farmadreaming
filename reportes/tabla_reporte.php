@@ -17,6 +17,7 @@
 	estatus_ventas <> 'CANCELADO'
 	AND fecha_ventas BETWEEN '{$_GET["fecha_inicio"]}'
 	AND '{$_GET["fecha_fin"]}'
+	AND id_sucursal = '{$_GET["id_sucursal"]}'
 	GROUP BY
 	fecha_ventas
 	) AS ventas_dia
@@ -32,6 +33,7 @@
 	estatus_ventas <> 'CANCELADO'
 	AND fecha_ventas BETWEEN '{$_GET["fecha_inicio"]}'
 	AND '{$_GET["fecha_fin"]}'
+	AND id_sucursal = '{$_GET["id_sucursal"]}'
 	GROUP BY
 	fecha_ventas
 	) AS t_num_ventas
@@ -75,7 +77,7 @@
 	WHERE
 	estatus_ventas <> 'CANCELADO'
 	AND fecha_ventas BETWEEN '{$_GET["fecha_inicio"]}' AND '{$_GET["fecha_fin"]}'
-	
+	AND id_sucursal = '{$_GET["id_sucursal"]}'
 	GROUP BY id_departamentos
 	ORDER BY ganancia_departamento DESC
 	
@@ -94,7 +96,7 @@
 	<br>
 	<br>
 	<div class="alert alert-warning text-center">
-	  <strong>No hay pagos en estas fechas</strong> 
+		<strong>No hay pagos en estas fechas</strong> 
 	</div>
 	<?php		
 	}
@@ -131,7 +133,7 @@
 							?>
 							<tr>
 								<td class="text-center">
-									<a href="../corte/resumen.php?fecha_ventas=<?php echo $fecha_ventas?>">
+									<a target="_blank" href="../corte/resumen.php?fecha_ventas=<?php echo $fecha_ventas."&id_sucursal={$_GET['id_sucursal']}" ?> ">
 										<?php echo date("d/m/Y", strtotime($fecha_ventas));?>
 									</a>
 								</td>
@@ -156,83 +158,94 @@
 									<big><b>TOTAL:</b></big>
 								</td>
 								<td class="text-right"><?= number_format($total_num_ventas);?>
-								<td class="text-right"><?=number_format($total_ventas,2);?>
-								</td>
-								<td  class="text-right">
-									<?php 
-										echo "$". number_format($total_ganancia,2);
-									?>
-								</td>
-							</tr>
-						</tfoot>
-					</table> 
-					
+									<td class="text-right"><?=number_format($total_ventas,2);?>
+									</td>
+									<td  class="text-right">
+										<?php 
+											echo "$". number_format($total_ganancia,2);
+										?>
+									</td>
+								</tr>
+							</tfoot>
+						</table> 
+						
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	
-	<div class="col-sm-6 ">
-		<div class="panel panel-primary">
-			<div class="panel-heading hidden-print">
-				<h4 class="text-center">
-					Ventas por Departamento
-				</h4>
-			</div>
-			<div class="panel-body" >
-				<div class="table-responsive">
-					
-					<table class="table table-hover" >
-						<thead>
-							<tr>
-								<th  onclick="sortTable(0)" class="text-left">Departamento</th>
-								<th onclick="sortTable(1)"  class="text-right">Suma</th>
-								<th onclick="sortTable(1)"  class="text-right">Ganancia</th>
-								
-							</tr>
-						</thead>
-						<tbody>
-							<?php 
-								$total_departemento = 0;
-								$total_ganancia = 0;
-								
-								while($fila = mysqli_fetch_assoc($result_departamento)){
-									$total_departemento+= $fila["importe_departamento"];
-									$total_ganancia+= $fila["ganancia_departamento"];
-								?>
-								
-								<tr class="text-center">
-									
-									<td class="text-left"><?= $fila["nombre_departamentos"];?></td>
-									<td class="text-right"><?= number_format($fila["importe_departamento"],2);?></td>
-									<td class="text-right"><?= number_format($fila["ganancia_departamento"],2);?></td>
+		
+		<div class="col-sm-6 ">
+			<div class="panel panel-primary">
+				<div class="panel-heading hidden-print">
+					<h4 class="text-center">
+						Ventas por Departamento
+					</h4>
+				</div>
+				<div class="panel-body" >
+					<div class="table-responsive">
+						
+						<table class="table table-hover" >
+							<thead>
+								<tr>
+									<th  onclick="sortTable(0)" class="text-left">Departamento</th>
+									<th onclick="sortTable(1)"  class="text-right">Suma</th>
+									<th onclick="sortTable(1)"  class="text-right">Ganancia</th>
 									
 								</tr>
-								
-								<?php
+							</thead>
+							<tbody>
+								<?php 
+									$total_departemento = 0;
+									$total_ganancia = 0;
 									
-								}
-							?>
-						</tbody>
-						<tfoot>
-							<tr class="bg-info">
-								<td class="text-left">
-									<big><b>TOTAL:</b></big>
-								</td>
-								<td class="text-right">
-									$<?= number_format($total_departemento,2);?>
-								</td>
-								<td  class="text-right">
-									$<?= number_format($total_ganancia,2);?>
-								</td>
-							</tr>
-						</tfoot>
-					</table>
+									while($fila = mysqli_fetch_assoc($result_departamento)){
+										$total_departemento+= $fila["importe_departamento"];
+										$total_ganancia+= $fila["ganancia_departamento"];
+									?>
+									
+									<tr class="text-center">
+										
+										<td class="text-left">
+											<?php
+												if($fila["nombre_departamentos"] == ''){
+													echo "Sin departamento";
+													
+												}
+												else{
+													$fila["nombre_departamentos"];
+												}
+												
+											?>
+										</td>
+										<td class="text-right"><?= number_format($fila["importe_departamento"],2);?></td>
+										<td class="text-right"><?= number_format($fila["ganancia_departamento"],2);?></td>
+										
+									</tr>
+									
+									<?php
+										
+									}
+								?>
+							</tbody>
+							<tfoot>
+								<tr class="bg-info">
+									<td class="text-left">
+										<big><b>TOTAL:</b></big>
+									</td>
+									<td class="text-right">
+										$<?= number_format($total_departemento,2);?>
+									</td>
+									<td  class="text-right">
+										$<?= number_format($total_ganancia,2);?>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
 				</div>
 			</div>
-		</div>
-	</div>		
-	
-	<?php
-	}
-?>			
+		</div>		
+		
+		<?php
+		}
+	?>								
