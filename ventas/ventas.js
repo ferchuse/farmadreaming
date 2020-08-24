@@ -107,7 +107,7 @@ function renderProductos(tab_index, venta){
 		<input class="cant_descuento form-control"  > 
 		</td>
 		<td class="col-sm-1">	
-		<input class="existencia_anterior form-control" readonly  value='${producto['existencia_productos']}'> 
+		<input class="existencia_anterior form-control" readonly  value='${producto['existencia']}'> 
 		</td>
 		<td class="text-center">
 		<button title="Eliminar Producto" class="btn btn-danger btn_eliminar">
@@ -542,7 +542,7 @@ function agregarProducto(producto){
 		<input type="number" class="cant_descuento form-control"   value='0'> 
 		</td>
 		<td class="col-sm-1">	
-		<input class="existencia_anterior form-control" readonly  value='${producto['existencia_productos']}'> 
+		<input class="existencia_anterior form-control" readonly  value='${producto['existencia']}'> 
 		</td>
 		<td class="text-center">
 		<button title="Elegir Lote" class="btn btn-info btn_caducidad" data-id_productos='${producto['id_productos']}'>

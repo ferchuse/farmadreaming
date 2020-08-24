@@ -10,7 +10,16 @@
 	$tabla= "productos"; 
 	$campo= "descripcion_productos"; 
 	
-	$consulta = "SELECT * FROM $tabla WHERE $campo LIKE '%$query%' OR sustanica LIKE '%$query%' ORDER BY $campo LIMIT 50 ";
+	$consulta = "SELECT * FROM $tabla 
+	
+	LEFT JOIN sucursal_existencias
+	USING(id_productos)
+	
+	WHERE $campo LIKE '%$query%' 
+	AND id_sucursal = '{$_COOKIE["id_sucursal"]}'
+	
+	
+	ORDER BY $campo LIMIT 50 ";
 	$result= mysqli_query($link,$consulta);
 	if($result){
 		while($fila=mysqli_fetch_assoc($result)){

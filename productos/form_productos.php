@@ -74,7 +74,7 @@
 								
 								<input placeholder="" type="number" step=".01" class="form-control" id="precio_mayoreo" name="precio_mayoreo">
 							</div>  
-							<div class="form-group ">
+							<div class="form-group hidden " hidden>
 								<label for="existencia_productos">Existencia:</label>
 								<input readonly placeholder="Cantidad de productos en existencia" type="number" min="0" step="any" class="form-control" id="existencia_productos" name="existencia_productos">
 							</div>

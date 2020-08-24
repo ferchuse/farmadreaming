@@ -4,11 +4,15 @@
 	
 	// $link = Conectarse();
 	 
-	function generar_select($link, $tabla, $llave_primaria, $campo_etiqueta ,$filtro = false, $disabled = false ,$required = false , $id_selected = 0, $data_indice = 0, $name = "", $order){
+	function generar_select($link, $tabla, $llave_primaria, $campo_etiqueta ,$filtro = false, $disabled = false ,$required = false , $id_selected = 0, $data_indice = 0, $name = "", $id = ""){
 		$consulta = "SELECT * FROM $tabla ORDER BY $campo_etiqueta";
 		
 		if($name == ""){
 			$name = $llave_primaria;
+		}
+		
+		if($id == ""){
+			$id = $llave_primaria;
 		}
 		
 		 
@@ -16,7 +20,7 @@
 		
 		$select .= $required ? " required " : " ";
 		$select .= $disabled ? " disabled " : " ";
-		$select.= "class='form-control' name='$name' id='$llave_primaria' >";
+		$select.= "class='form-control' name='$name' id='$id' >";
 		if($filtro){
 			$select .= "<option value=''>Todos</option>";
 		} 

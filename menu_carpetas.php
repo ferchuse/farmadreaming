@@ -22,7 +22,7 @@
 			<ul class="nav navbar-nav">
 				<?php if(dame_permiso("index.php", $link) != "Sin Acceso"){	?> 
 					<li class="<?php echo $menu_activo == "principal" ? "active" : ''; ?>">
-					<a href="<?php echo isset($_COOKIE["id_sucursal"]) ? "../ventas/index.php" : "../index.php"; ?>">
+						<a href="<?php echo isset($_COOKIE["id_sucursal"]) ? "../ventas/index.php" : "../index.php"; ?>">
 							<i class="fas fa-dollar-sign"></i> Ventas
 						</a>
 					</li>					
@@ -39,6 +39,13 @@
 					<?php 
 					}
 				?> 
+				
+				<li class=" <?php echo $menu_activo == "traspasos" ? "active" : ''; ?>">
+					<a href="../traspasos/index.php">
+						<i class="fas fa-exchange-alt"></i> Traspasos
+					</a>
+				</li>
+				
 				
 				<?php if(dame_permiso("reportes/index.php", $link) != "Sin Acceso"){	?>
 					<li class="dropdown <?php echo $menu_activo == "reportes" ? "active" : ''; ?>">

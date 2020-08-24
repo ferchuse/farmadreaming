@@ -40,6 +40,13 @@
 					}
 				?> 
 				
+				<li class=" <?php echo $menu_activo == "traspasos" ? "active" : ''; ?>">
+					<a href="traspasos/index.php">
+						<i class="fas fa-exchange-alt"></i> Traspasos
+					</a>
+				</li>
+				
+				
 				<?php if(dame_permiso("reportes/index.php", $link) != "Sin Acceso"){	?>
 					<li class="dropdown <?php echo $menu_activo == "reportes" ? "active" : ''; ?>">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
