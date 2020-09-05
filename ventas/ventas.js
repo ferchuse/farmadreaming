@@ -289,7 +289,7 @@ $(document).ready( function onLoad(){
 	
 	//Autocomplete Productos https://github.com/devbridge/jQuery-Autocomplete
 	$("#buscar_producto").autocomplete({
-		serviceUrl: "../control/productos_autocomplete.php",   
+		serviceUrl: "productos_autocomplete.php",   
 		onSelect: function alSeleccionarProducto(eleccion){
 			console.log("Elegiste: ",eleccion);
 			if(eleccion.data.unidad_productos == 'KG'){
@@ -317,64 +317,17 @@ $(document).ready( function onLoad(){
 				
 			}
 		},
+		params:{
+			"tabla": "productos",
+			"campo": "descripcion_productos"
+		},
 		autoSelectFirst	:true , 
 		showNoSuggestionNotice	:true , 
 		noSuggestionNotice	: "Sin Resultados"
 	});
 	
 	
-	$('#codigo_producto').keypress( function buscarCodigo(event){
-		if(event.which == 13){
-			if($(this).val() == ""){
-				alertify.error("Escribe un Código");
-				return;
-			}
-			console.log("buscarCodigo()");
-			var input = $(this);
-			// input.prop('disabled',true);
-			input.toggleClass('ui-autocomplete-loading');
-			var codigoProducto = $(this).val();
-			$.ajax({
-				url: "../control/buscar_normal.php",
-				dataType: "JSON",
-				method: 'POST',
-				data: {tabla:'productos', campo:'codigo_productos', id_campo: codigoProducto}
-				}).done(function terminabuscarCodigo(respuesta){
-				
-				if(respuesta.numero_filas >= 1){
-					console.log("Producto Encontrado");
-					producto_elegido = respuesta.fila;
-					
-					if(producto_elegido.unidad_productos == 'PZA'){//Si el producto se vende por pieza
-						
-						producto_elegido.importe= producto_elegido.precioventa_menudeo_productos;
-						producto_elegido.cantidad=1 ;
-						agregarProducto(producto_elegido);
-						$("#codigo_producto").focus();
-						
-					}
-					else if(producto_elegido.unidad_productos == 'KG'){ //Si el producto se vende a granel
-						$('#modal_granel').modal('show');
-						
-						$('#unidad_granel').val(1);
-						$('#costo_granel').val(producto_elegido.precio_menudeo);
-						$('#costoventa_granel').text('$ '+ producto_elegido.precioventa_menudeo_productos);
-						
-					}
-					$('#form_agregar_producto')[0].reset();		
-				}
-				else{
-					alertify.error('Código no Encontrado');
-				}
-				
-				}).always(function(){
-				
-				input.toggleClass('ui-autocomplete-loading');
-				input.prop('disabled',false);
-				input.focus();
-			});
-		} 
-	});
+	$('#codigo_producto').keypress( buscarCodigo );
 	
 	$("#modal_granel").on("shown.bs.modal", function alMostrarGranel() { 
 		$("#cantidad").focus();
@@ -397,6 +350,63 @@ $(document).ready( function onLoad(){
 	$("#codigo_producto").focus();
 }); 
 
+
+function buscarCodigo(event){
+	if(event.which == 13){
+		if($(this).val() == ""){
+			alertify.error("Escribe un Código");
+			return;
+		}
+		console.log("buscarCodigo()");
+		var input = $(this);
+		// input.prop('disabled',true);
+		input.toggleClass('ui-autocomplete-loading');
+		var codigoProducto = $(this).val();
+		$.ajax({
+			url: "productos_autocomplete.php",
+			dataType: "JSON",
+			method: 'GET',
+			data: {
+				tabla:'productos', 
+				campo:'codigo_productos', 
+				query: codigoProducto
+			}
+			}).done(function terminabuscarCodigo(respuesta){
+			
+			if(respuesta.suggestions.length >= 1){
+				console.log("Producto Encontrado");
+				producto_elegido = respuesta.suggestions[0]["data"];
+				
+				if(producto_elegido.unidad_productos == 'PZA'){//Si el producto se vende por pieza
+					
+					producto_elegido.importe= producto_elegido.precioventa_menudeo_productos;
+					producto_elegido.cantidad=1 ;
+					agregarProducto(producto_elegido);
+					$("#codigo_producto").focus();
+					
+				}
+				else if(producto_elegido.unidad_productos == 'KG'){ //Si el producto se vende a granel
+					$('#modal_granel').modal('show');
+					
+					$('#unidad_granel').val(1);
+					$('#costo_granel').val(producto_elegido.precio_menudeo);
+					$('#costoventa_granel').text('$ '+ producto_elegido.precioventa_menudeo_productos);
+					
+				}
+				$('#form_agregar_producto')[0].reset();		
+			}
+			else{
+				alertify.error('Código no Encontrado');
+			}
+			
+			}).always(function(){
+			
+			input.toggleClass('ui-autocomplete-loading');
+			input.prop('disabled',false);
+			input.focus();
+		});
+	} 
+}
 
 
 function editarListaCaducidad(event){
@@ -442,17 +452,17 @@ function resetFormPago(){
 	
 	$("#div_efectivo").removeClass("hidden")
 	$("#div_tarjeta").addClass("hidden")
-
-$("#form_pago")[0].reset();
-// $("#forma_pago").val("efectivo");
-
-$("#efectivo").prop("readonly", true)
-$("#efectivo").val($("#subtotal").val())
-
-$("#tarjeta").val(0)
-$("#comision").val(0)
-
-
+	
+	$("#form_pago")[0].reset();
+	// $("#forma_pago").val("efectivo");
+	
+	$("#efectivo").prop("readonly", true)
+	$("#efectivo").val($("#subtotal").val())
+	
+	$("#tarjeta").val(0)
+	$("#comision").val(0)
+	
+	
 }
 
 function calcularGranel(event){
@@ -499,7 +509,7 @@ function agregarProducto(producto){
 		precio = producto['precio_menudeo'];
 		
 	}
-	//Buscar por id_productos, si se encuentra agregar 1 unidad sino agregar nuevo producto
+	//Buscar por id_productos, si se encuentra en la lista agregar 1 unidad sino agregar nuevo producto
 	console.log("Buscando id_productos = ", producto.id_productos);
 	var $existe= $(".tabla_venta:visible").find(".id_productos[value='"+producto.id_productos+"']");
 	console.log("existe", $existe);

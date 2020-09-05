@@ -3,7 +3,7 @@
 	include("../login/login_success.php");
 	include("../conexi.php");
 	$link = Conectarse();
-	$menu_activo = "compras";
+	$menu_activo = "traspasos";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -72,8 +72,12 @@
 		
 		<?php  include('../scripts_carpetas.php'); ?>
 		<script>
+		
 			
 			$("#form_filtros").submit(listarRegistros);
+			
+			$("#form_filtros").submit();
+			
 			
 			function listarRegistros(event){
 				event.preventDefault();

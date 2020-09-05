@@ -52,6 +52,22 @@
 							<label for="">Código:</label>
 							<input type="search" name="codigo_productos" class="form-control" >
 						</div>
+						<div class="form-group">
+							<label for="ordenar">Ordenar Por:</label>
+							<select  class="form-control"  name="orden">
+								<option value="codigo_productos">Codigo</option>
+								<option value="existencia_productos">Existencia</option>
+								<option value="precio_menudeo">Precio</option>
+								<option selected value="descripcion_productos">Descripción</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="asc">Orden:</label>
+							<select  class="form-control"  name="asc">
+								<option value="ASC">Ascendente</option>
+								<option value="DESC">Descendente</option>
+							</select>
+						</div>
 						
 						<button type="submit" class="btn btn-primary" id="btn_buscar">
 							<i class="fa fa-search"></i> Buscar
@@ -117,6 +133,9 @@
 		</div>
 		<form id="form_imprimir_precios" action="../impresion/imprimir_precios.php">
 		</form>
+		
+		<div id="historial">
+		</div>
 		<?php include('form_productos.php'); ?>
 		<?php include('../forms/existencias.php'); ?>
 		<?php include('../caducidad/modal_caducidad.php'); ?>

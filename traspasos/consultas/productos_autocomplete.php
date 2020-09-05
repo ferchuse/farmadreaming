@@ -1,7 +1,10 @@
 <?php
 	
-	include ("../conexi.php");
+	include ("../../conexi.php");
 	header("Content-Type: application/json");
+	
+	
+	
 	
 	$link=Conectarse();
 	
@@ -11,9 +14,6 @@
 	$campo= "descripcion_productos"; 
 	
 	$consulta = "SELECT * FROM $tabla 
-	
-	LEFT JOIN sucursal_existencias
-	USING(id_productos)
 	
 	LEFT JOIN 
 	(
@@ -26,17 +26,22 @@
 	(
 	SELECT id_productos, existencia AS zumpango 
 	FROM sucursal_existencias WHERE id_sucursal = 2
+	
 	) AS t_zumpango
 	USING(id_productos)
 	
+	LEFT JOIN 
+	(
+	SELECT id_productos, SUM(existencia) AS existencia_total 
+	FROM sucursal_existencias 
+	GROUP BY id_productos
+	) AS t_total
+	USING(id_productos)
 	
 	WHERE $campo LIKE '%$query%' 
 	
 	
 	ORDER BY $campo LIMIT 50 ";
-	
-	$consulta = "SELECT * FROM $tabla WHERE $campo LIKE '%$query%' OR sustancia LIKE '%$query%' ORDER BY $campo LIMIT 50 ";
-	
 	$result= mysqli_query($link,$consulta);
 	if($result){
 		while($fila=mysqli_fetch_assoc($result)){

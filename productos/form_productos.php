@@ -47,7 +47,7 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="costo_proveedor">Costo de compra:</label>
-								<input placeholder=""  type="number" min="0" step=".01" class="form-control" id="costo_proveedor" name="costo_proveedor">
+								<input placeholder=""  type="number" min="0" step=".01" class="form-control" id="costo_mayoreo" name="costo_mayoreo">
 								
 							</div>
 							<div class="form-group">
@@ -56,6 +56,10 @@
 								</label>
 								<input placeholder="" required type="number" min="1" step="1" class="form-control" value="1" id="piezas" name="piezas">
 								
+							</div>
+							<div class="form-group ">
+								<label for="costo_proveedor">Costo x Pieza:</label>
+								<input placeholder=""  type="number"  step="any" class="form-control" id="costo_proveedor" name="costo_proveedor">
 							</div>
 							<div class="form-group ">
 								<label for="">Porcentaje de Ganancia :</label>

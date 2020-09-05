@@ -3,7 +3,7 @@
 	include("../funciones/generar_select.php");
 	include("../conexi.php");
 	$link = Conectarse();
-	$menu_activo = "compras";
+	$menu_activo = "traspasos";
 	
 	
 	

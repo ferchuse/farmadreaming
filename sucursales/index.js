@@ -1,5 +1,5 @@
 
-// var producto_elegido ;
+var producto_elegido ;
 
 function beforePrint() {
 	//
@@ -71,9 +71,6 @@ $(document).ready(function(){
 		
 	}
 	
-	$("#piezas").keyup(modificarPrecio);
-	
-	
 	
 	// $('#form_granel').submit(agregarGranel);
 	$('#form_agregar_producto').submit(function(event){
@@ -107,8 +104,8 @@ $(document).ready(function(){
 	
 	//Autocomplete Productos https://github.com/devbridge/jQuery-Autocomplete
 	$("#buscar_producto").autocomplete({
-		serviceUrl: "productos_autocomplete.php",   
-		onSelect: function alSeleccionar(eleccion){
+		serviceUrl: "../control/productos_autocomplete.php",   
+		onSelect: function(eleccion){
 			console.log("Elegiste: ",eleccion);
 			if(eleccion.data.unidad_productos == 'KG'){
 				$("#precio_mayoreo").val(eleccion.data.precio_mayoreo);
@@ -117,7 +114,7 @@ $(document).ready(function(){
 				
 				$("#modal_granel").modal("show");
 				$("#importe").val(eleccion.data.costo_proveedor * 1);
-				// producto_elegido = eleccion.data;
+				producto_elegido = eleccion.data;
 				$("#buscar_producto").val("");
 				$("#buscar_producto").focus();
 			} 
@@ -130,10 +127,6 @@ $(document).ready(function(){
 			
 			// $("#tel_clientes").val(eleccion.data.tel_clientes)
 		},
-		params:{
-			"tabla": "productos",
-			"campo": "descripcion_productos"
-		},
 		autoSelectFirst	:true , 
 		showNoSuggestionNotice	:true , 
 		noSuggestionNotice	: "Sin Resultados"
@@ -143,11 +136,9 @@ $(document).ready(function(){
 });
 
 
-
-
 function modificarPrecio() {
 	console.log("modificarPrecio");
-	var costo_mayoreo = Number($("#costo_mayoreo").val());
+	var costo_proveedor = Number($(this).val());
 	var piezas = Number($('#piezas').val());
 	var ganancia_mayoreo_porc = Number($('#ganancia_mayoreo_porc').val());
 	
@@ -160,7 +151,7 @@ function modificarPrecio() {
 	}
 	
 	if (piezas != '') {
-		var costo_pz = costo_mayoreo / piezas;
+		var costo_pz = costo_proveedor / piezas;
 		$('#costo_proveedor').val(costo_pz.toFixed(2));
 		
 		if (costo_pz != '') {
@@ -254,19 +245,15 @@ function agregarProducto(producto){
 		
 		<td class="col-sm-1"><input readonly type="number" class='importe form-control text-right' > </td>
 		<td class="col-sm-1">	
-		<input class="existencia_anterior form-control" readonly  value='${producto['existencia_total']}'> 
+		<input class="existencia_anterior form-control" readonly  value='${producto['existencia_productos']}'> 
 		</td>
 		<td class="text-center">
 		<button title="Editar Producto" data-id_producto="${producto['id_productos']}" class="btn btn-warning btn_editar">
 		<i class="fa fa-edit"></i>
 		</button>
-		<button title="Existencias"	data-id_productos="${producto.id_productos}"  data-descripcion="${producto.descripcion_productos}" class="btn btn-default btn_existencia" data-id_productos="${producto.id_productos}">
-			<i class="fa fa-cubes"></i>
-			</button>
 		<button title="Eliminar Producto" class="btn btn-danger btn_eliminar">
 		<i class="fa fa-trash"></i>
 		</button> 
-		
 		</td>
 		</tr>`;
 		
@@ -376,8 +363,8 @@ function loadProveedores() {
 		
 		}).done(function(respuesta){
 		let proveedores =`<option value="">
-		Seleccione...
-		</option>`;
+			Seleccione...
+			</option>`;
 		
 		$.each(respuesta.filas, function(index, fila){
 			proveedores += `
@@ -394,62 +381,41 @@ function loadProveedores() {
 }
 
 
-
 function buscarCodigo(event){
 	if(event.which == 13){
-		if($(this).val() == ""){
-			alertify.error("Escribe un Código");
-			return;
-		}
 		console.log("buscarCodigo()");
 		var input = $(this);
-		// input.prop('disabled',true);
-		input.toggleClass('ui-autocomplete-loading');
 		var codigoProducto = $(this).val();
+		
+		input.prop('disabled',true);
+		input.addClass('ui-autocomplete-loading');
+		
 		$.ajax({
-			url: "productos_autocomplete.php",
+			url: "../control/buscar_normal.php",
 			dataType: "JSON",
-			method: 'GET',
-			data: {
-				tabla:'productos', 
-				campo:'codigo_productos', 
-				query: codigoProducto
-			}
-			}).done(function terminabuscarCodigo(respuesta){
+			method: 'POST',
+			data: {tabla:'productos', campo:'codigo_productos', id_campo: codigoProducto}
+			}).done(function (respuesta){
 			
-			if(respuesta.suggestions.length >= 1){
-				console.log("Producto Encontrado");
-				producto_elegido = respuesta.suggestions[0]["data"];
-				
-				if(producto_elegido.unidad_productos == 'PZA'){//Si el producto se vende por pieza
-					
-					producto_elegido.importe= producto_elegido.precioventa_menudeo_productos;
-					producto_elegido.cantidad=1 ;
-					agregarProducto(producto_elegido);
-					$("#codigo_producto").focus();
-					
-				}
-				else if(producto_elegido.unidad_productos == 'KG'){ //Si el producto se vende a granel
-					$('#modal_granel').modal('show');
-					
-					$('#unidad_granel').val(1);
-					$('#costo_granel').val(producto_elegido.precio_menudeo);
-					$('#costoventa_granel').text('$ '+ producto_elegido.precioventa_menudeo_productos);
-					
-				}
-				$('#form_agregar_producto')[0].reset();		
+			if(respuesta.numero_filas >= 1){
+				$.each(respuesta.fila, function(name, value){
+					$("#" + name).val(value);
+				});
 			}
 			else{
 				alertify.error('Código no Encontrado');
 			}
 			
+			
 			}).always(function(){
 			
-			input.toggleClass('ui-autocomplete-loading');
+			// input.toggleClass('ui-autocomplete-loading');
 			input.prop('disabled',false);
-			input.focus();
+			$("#descripcion_productos").focus();
+			input.removeClass('ui-autocomplete-loading');
 		});
-	} 
+		
+	}
 }
 
 function cargarRegistro() {
@@ -577,7 +543,6 @@ function guardarProducto(event) {
 			
 			console.log("campos: ",$("#form_productos").serializeArray())
 			
-			//Actualiza el costo y exsitencia del producto
 			$.each(formulario, function(index, campo){
 				switch(campo.name){
 					

@@ -47,10 +47,15 @@ function listaProductos() {
 			<i class="fa fa-cart-plus"></i>
 			</button>
 			<button title="Lote y Caducidad" class="btn btn-info btn_caducidad" data-id_productos="${value.id_productos}">
-				<i class="fa fa-hourglass-end"></i>
+			<i class="fa fa-hourglass-end"></i>
+			</button>
+			<button class="btn btn-secondary btn_historial" 
+			data-id_productos="${value.id_productos}"
+			>
+			<i class="fa fa-clock"></i>
 			</button>
 			<button title="Existencias"	data-id_productos="${value.id_productos}"  data-descripcion="${value.descripcion_productos}" class="btn btn-default btn_existencia" data-id_productos="${value.id_productos}">
-				<i class="fa fa-cubes"></i>
+			<i class="fa fa-cubes"></i>
 			</button>
 			</td>
 			</tr>  
@@ -65,6 +70,7 @@ function listaProductos() {
 		$("#bodyProductos").on("click", ".btn_eliminar", confirmaEliminar)
 		$("#bodyProductos").on("click", ".btn_editar", cargarRegistro)
 		$("#bodyProductos").on("click", ".btn_carrito", pedirCantidad)
+		$("#bodyProductos").on("click", ".btn_historial", mostrarHistorial);
 		
 		
 		$(".buscar_codigo").keyup( buscarCodigo);
@@ -84,7 +90,27 @@ function listaProductos() {
 	});
 }
 
-
+function mostrarHistorial() {
+	// $('#form_productos')[0].reset();
+	var boton = $(this);
+	var icono = boton.find('.fa');
+	icono.toggleClass('fa-clock fa-spinner fa-spin');
+	boton.prop('disabled', true);
+	// var id_productos = 
+	$.ajax({
+		url: 'modal_historial.php',
+		method: 'get',
+		
+		data: { 'id_productos': boton.data('id_productos') }
+		}).done(function (respuesta) {
+		
+		$('#historial').html(respuesta);
+		$('#modal_historial').modal('show');
+		
+		icono.toggleClass('fa-clock fa-spinner fa-spin');
+		boton.prop('disabled', false);
+	});
+}
 function buscarCodigo() {
 	var indice = $(this).data("indice");
 	var valor_filtro = $(this).val();
@@ -125,6 +151,7 @@ $(document).ready(function () {
 		$(this).select();
 	})
 	
+	$("#piezas").keyup(calcularCostoUnitario);
 	
 	
 	listaProductos();
@@ -134,6 +161,8 @@ $(document).ready(function () {
 		$('h3.modal-title').text('Nuevo Producto');
 		$('#modal_productos').modal('show');
 	});
+	
+	
 	//--------CHECAR DUPLICADOS------
 	$('#codigo_productos').keyup(buscarRepetidos );
 	
@@ -288,7 +317,16 @@ $(document).ready(function () {
 });
 
 
-
+function calcularCostoUnitario(){
+	
+	let costo_mayoreo = $("#costo_mayoreo").val();
+	let piezas = 	$("#piezas").val();
+	
+	let costo_unitario = costo_mayoreo / piezas;
+	
+	$("#costo_proveedor").val(costo_unitario.toFixed(2))
+	
+}
 
 
 

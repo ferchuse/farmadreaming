@@ -69,6 +69,7 @@ $(document).ready(function(){
 		
 	}
 	
+	$("#piezas").keyup(calcularCostoUnitario);
 	
 	$('#form_granel').submit(agregarGranel);
 	$('#form_agregar_producto').submit(function(event){
@@ -93,7 +94,7 @@ $(document).ready(function(){
 	
 	//Autocomplete Productos https://github.com/devbridge/jQuery-Autocomplete
 	$("#buscar_producto").autocomplete({
-		serviceUrl: "../control/productos_autocomplete.php",   
+		serviceUrl: "consultas/productos_autocomplete.php",   
 		onSelect: function(eleccion){
 			console.log("Elegiste: ",eleccion);
 			if(eleccion.data.unidad_productos == 'KG'){
@@ -123,6 +124,10 @@ $(document).ready(function(){
 	
 	
 });
+
+
+
+
 
 function calcularGranel(event){
 	let precio = Number($("#precio").val());
@@ -199,7 +204,7 @@ function agregarProducto(producto){
 		<input class=" form-control" readonly  value='${producto['zumpango']}'> 
 		</td>
 		<td class="col-sm-1">	
-		<input class="existencia_anterior form-control" readonly  value='${producto['existencia']}'> 
+		<input class="existencia_anterior form-control" readonly  value='${producto['existencia_total']}'> 
 		</td>
 		<td class="text-center">
 		<button title="Eliminar Producto" class="btn btn-danger btn_eliminar">
@@ -267,8 +272,8 @@ function guardarTraspaso(event){
 			if(respuesta.estatus_venta == "success"){
 				alertify.success('Traspaso Guardado');
 				
-				// imprimirTraspaso( respuesta.folio)
-				window.location.href="index.php";
+				imprimirTraspaso( respuesta.folio)
+				// window.location.href="index.php";
 				
 			}
 			}).always(function(){
@@ -346,23 +351,21 @@ function buscar(filtro,table_id,indice) {
 	return num_rows;
 }
 
-function imprimirTraspaso(id_ventas){
-	console.log("imprimirTicket()");
+function imprimirTraspaso (folio){
+	console.log("imprimirTraspaso()");
 	
-	
-	// $.ajax({
-	// url: "impresion/imprimir_venta.php",
-	// data:{
-	// id_ventas : id_ventas
-	// }
-	// }).done(function (respuesta){
-	
-	// $("#ticket").html(respuesta); 
-	// window.print();
-	// }).always(function(){
-	
-	// boton.prop("disabled", false);
-	// icono.toggleClass("fa-print fa-spinner fa-spin");
-	
-	// });
-}		
+	$.ajax({
+		url: "impresion/imprimir_traspaso.php" ,
+		data:{
+			"folio" : folio
+		}
+		}).done(function (respuesta){
+		
+		printService.submit({
+			'type': 'LABEL',
+			'raw_content': respuesta
+		});
+		}).always(function(){
+		
+	});
+}	

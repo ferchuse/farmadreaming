@@ -120,7 +120,7 @@
 									<th class="text-center">Acciones</th>
 								</tr>
 							</thead>
-							<tbody id="bodyProductos" >
+							<tbody >
 								
 							</tbody>
 						</table>
@@ -152,13 +152,9 @@
 			
 		</div>
 		<?php include('../scripts_carpetas.php'); ?>
-		
-		<?php include('../existencias/modal_existencias.php'); ?>
-		
-		<?php include('form_productos.php'); ?>
+		<?php include('modal_productos.php'); ?>
 		<?php include('../forms/modal_venta.php'); ?>
 		<?php include('../forms/modal_granel.php'); ?>
-		<script src="../existencias/existencias.js?<?= date("d-m-Y-H-m-s")?>"></script>
 		<script src="compras.js?v=<?= date("YmdHis")?>"></script>
 		
 	</body>

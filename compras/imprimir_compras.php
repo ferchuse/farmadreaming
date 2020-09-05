@@ -4,8 +4,8 @@ include("../conexi.php");
 $link = Conectarse();
 
 $consulta = "SELECT * FROM compras 
-	LEFT JOIN compras_detalle USING (id_compras)
 	LEFT JOIN proveedores USING (id_proveedores)
+	LEFT JOIN compras_detalle USING (id_compras)
 	WHERE id_compras={$_GET["id_compras"]}";
 
 $result = mysqli_query($link, $consulta);
@@ -63,7 +63,7 @@ while ($fila = mysqli_fetch_assoc($result)) {
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-3"><strong>Proveedor:</strong></div>
-                        <div class="col-sm-8"><?php echo $filas[0]["proveedor"] ?></div>
+                        <div class="col-sm-8"><?php echo $filas[0]["nombre_proveedores"] ?></div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3"><strong>Fecha:</strong></div>
@@ -92,7 +92,7 @@ while ($fila = mysqli_fetch_assoc($result)) {
                             <?php foreach ($filas as $i => $producto) { ?>
 
                                 <tr>
-                                    <th class="text-center"><?php echo $producto["cantidad"] ?></th>
+                                    <th class="text-center"><?php echo number_format($producto["cantidad"]);?></th>
                                     <th class="text-center"><?php echo $producto["descripcion"] ?></th>
                                     <th class="text-center"><?php echo $producto["precio"] ?></th>
                                     <th class="text-center"><?php echo $producto["importe"] ?></th>
