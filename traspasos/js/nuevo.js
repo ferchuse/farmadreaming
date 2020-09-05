@@ -69,7 +69,9 @@ $(document).ready(function(){
 		
 	}
 	
-	$("#piezas").keyup(calcularCostoUnitario);
+	$('#codigo_producto').keypress( buscarCodigo );
+	
+	// $("#piezas").keyup(calcularCostoUnitario);
 	
 	$('#form_granel').submit(agregarGranel);
 	$('#form_agregar_producto').submit(function(event){
@@ -127,6 +129,63 @@ $(document).ready(function(){
 
 
 
+
+function buscarCodigo(event){
+	if(event.which == 13){
+		if($(this).val() == ""){
+			alertify.error("Escribe un Código");
+			return;
+		}
+		console.log("buscarCodigo()");
+		var input = $(this);
+		// input.prop('disabled',true);
+		input.toggleClass('ui-autocomplete-loading');
+		var codigoProducto = $(this).val();
+		$.ajax({
+			url: "productos_autocomplete.php",
+			dataType: "JSON",
+			method: 'GET',
+			data: {
+				tabla:'productos', 
+				campo:'codigo_productos', 
+				query: codigoProducto
+			}
+			}).done(function terminabuscarCodigo(respuesta){
+			
+			if(respuesta.suggestions.length >= 1){
+				console.log("Producto Encontrado");
+				producto_elegido = respuesta.suggestions[0]["data"];
+				
+				if(producto_elegido.unidad_productos == 'PZA'){//Si el producto se vende por pieza
+					
+					producto_elegido.importe= producto_elegido.precioventa_menudeo_productos;
+					producto_elegido.cantidad=1 ;
+					agregarProducto(producto_elegido);
+					$("#codigo_producto").focus();
+					
+				}
+				else if(producto_elegido.unidad_productos == 'KG'){ //Si el producto se vende a granel
+					$('#modal_granel').modal('show');
+					
+					$('#unidad_granel').val(1);
+					$('#costo_granel').val(producto_elegido.precio_menudeo);
+					$('#costoventa_granel').text('$ '+ producto_elegido.precioventa_menudeo_productos);
+					
+				}
+				$('#form_agregar_producto')[0].reset();		
+			}
+			else{
+				alertify.error('Código no Encontrado');
+			}
+			
+			}).always(function(){
+			
+			input.toggleClass('ui-autocomplete-loading');
+			input.prop('disabled',false);
+			input.focus();
+		});
+	} 
+}
 
 
 function calcularGranel(event){

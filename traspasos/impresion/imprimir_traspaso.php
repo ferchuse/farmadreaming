@@ -24,9 +24,9 @@
 	}
 	
 	
-	$sucursales= [
-		["1"] => "San Sebastián",
-		["2"] => "Zumpango"
+	$sucursales= [ 
+		"1" => "San Sebastián",
+		"2" => "Zumpango"
 	];
 	
 	
@@ -47,10 +47,10 @@
 	$respuesta.= "Usuario: " .$fila_venta[0]["nombre_usuarios"]."\n";
 	 
 	 
-	 // $respuesta.= "Origen: " .$sucursales["1"].$fila_venta[0]["origen"]."\n";
+	 // $respuesta.= "Origen: " .var_dump($sucursales)."\n";
 	 // $respuesta.= "Origen: " .$sucursales[1].$fila_venta[0]["origen"]."\n";
-	 $respuesta.= "Origen: " .$sucursales["{$fila_venta[0]["origen"]}"].$fila_venta[0]["origen"]."\n";
-	 $respuesta.= "Destino: " .$sucursales["{$fila_venta[0]["destino"]}"].$fila_venta[0]["destino"]."\n";
+	 $respuesta.= "Origen: " .$sucursales["{$fila_venta[0]["origen"]}"]."\n";
+	 $respuesta.= "Destino: " .$sucursales["{$fila_venta[0]["destino"]}"]."\n\n";
 	 
 	
 	// $respuesta.= "Destino: " .$fila_venta[0]["destino"] == "1" ? "San Sebastián" : "Zumpango""\n".chr(10).chr(13).chr(10).chr(13);
